@@ -1,7 +1,8 @@
 /**
  * Created by jiangyukun on 2017/2/20.
  */
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 class Header extends Component {
   onHide = () => {
@@ -13,8 +14,8 @@ class Header extends Component {
       <div className="my-modal-header">
         {
           this.props.closeButton && (
-            <div className="close-btn" onClick={this.onHide}>
-              <span>+</span>
+            <div className="my-close-btn" onClick={this.onHide}>
+              <span className="my-close-btn-icon">+</span>
             </div>
           )
         }

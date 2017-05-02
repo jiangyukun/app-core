@@ -1,4 +1,6 @@
-.modal {
+$out-time: 150ms;
+
+.my-modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -6,20 +8,21 @@
     left: 0;
     z-index: 5;
 
-    .mask {
+    .my-mask {
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: rgba(148, 149, 153, 0.6);
-        &.open {
-            animation: mask-in 300ms ease-in-out;
+        background-color: #0d0a31;
+        opacity: .85;
+        &.my-open {
+            animation: my-mask-in 300ms ease-in-out;
         }
-        &.close {
-            animation: mask-out 300ms ease-in-out;
+        &.my-close {
+            animation: my-mask-out $out-time ease-in-out;
         }
     }
 
-    .modal-container {
+    .my-modal-container {
         position: absolute;
         top: 0;
         left: 0;
@@ -27,18 +30,51 @@
         bottom: 0;
     }
 
-    .modal-content {
+    .my-modal-content {
         border-radius: 4px;
-        &.open {
-            animation: slide-down 300ms ease-in-out;
+        width: 600px;
+        margin: 100px auto 0;
+        background: #fff;
+        &.my-open {
+            animation: my-fade-in 300ms ease-in-out;
         }
-        &.close {
-            animation: slide-up 300ms ease-in-out;
+        &.my-close {
+            animation: my-fade-out $out-time ease-in-out;
         }
+    }
+
+    .my-modal-header {
+        padding: 15px;
+        color: #aaa;
+        border-bottom: 1px solid #e8e8e8;
+        position: relative;
+        .my-close-btn {
+            position: absolute;
+            top: 5px;
+            right: -33px;
+            width: 10px;
+            height: 10px;
+        }
+
+        .my-close-btn-icon {
+            cursor: pointer;
+            display: inline-block;
+            transform: scale(2.5) rotate(45deg);
+            color: #fff;
+        }
+    }
+
+    .my-modal-body {
+        padding: 15px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+    .my-modal-footer {
+        text-align: right;
+        padding: 15px;
     }
 }
 
-@keyframes slide-down {
+@keyframes my-slide-down {
     from {
         transform: translateY(-200px);
         opacity: 0;
@@ -49,7 +85,7 @@
     }
 }
 
-@keyframes slide-up {
+@keyframes my-slide-up {
     from {
         transform: translateY(0);
         opacity: 1;
@@ -60,20 +96,38 @@
     }
 }
 
-@keyframes mask-in {
+@keyframes my-mask-in {
     from {
-        background-color: rgba(148, 149, 153, 0.1);
+        opacity: .15;
     }
     to {
-        background-color: rgba(148, 149, 153, 0.6);
+        opacity: .85;
     }
 }
 
-@keyframes mask-out {
+@keyframes my-mask-out {
     from {
-        background-color: rgba(148, 149, 153, 0.6);
+        opacity: .85;
     }
     to {
-        background-color: rgba(148, 149, 153, 0.1);
+        opacity: .15;
+    }
+}
+
+@keyframes my-fade-in {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes my-fade-out {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0);
     }
 }
