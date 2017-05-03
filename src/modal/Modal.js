@@ -12,6 +12,9 @@ import {
 import {addClass, removeClass} from 'dom-helpers/class'
 
 import _Modal from './_Modal'
+import Header from './Header'
+import Body from './Body'
+import Footer from './Footer'
 
 class Modal extends Component {
   componentDidMount() {
@@ -43,5 +46,9 @@ Modal.propTypes = {
   onHide: PropTypes.func,
   onExited: PropTypes.func
 }
+
+Modal.Header = Header
+Modal.Body = Body
+Modal.Footer = Footer
 
 export default Modal
