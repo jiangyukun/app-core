@@ -1,5 +1,5 @@
 /**
- * 自己造的对话框
+ * 将组件移到body下面
  * Created by jiangyukun on 2017/2/20.
  */
 import React, {Component} from 'react'
@@ -13,6 +13,7 @@ import {addClass, removeClass} from 'dom-helpers/class'
 
 import _Modal from './_Modal'
 import Header from './Header'
+import Title from './Title'
 import Body from './Body'
 import Footer from './Footer'
 
@@ -48,6 +49,7 @@ Modal.propTypes = {
 }
 
 Modal.Header = Header
+Modal.Title = Title
 Modal.Body = Body
 Modal.Footer = Footer
 

@@ -3,7 +3,9 @@
  */
 import Modal from './Modal'
 
+import Header from './Header'
+import Body from './Body'
+import Footer from './Footer'
+
 export default Modal
-export Header from './Header'
-export Body from './Body'
-export Footer from './Footer'
+export {Header, Body, Footer}

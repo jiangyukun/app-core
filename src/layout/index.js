@@ -1,8 +1,8 @@
 /**
  * Created by jiangyukun on 2017/4/18.
  */
-export FlexDiv from './FlexDiv'
-export Part from './Part'
-export Width from './Width'
+import FlexDiv from './FlexDiv'
+import Part from './Part'
+import Line from './Line'
 
-export Line from './Line'
+export {FlexDiv, Part, Line}
