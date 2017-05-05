@@ -28,12 +28,18 @@ $out-time: 150ms;
         left: 0;
         right: 0;
         bottom: 0;
+        overflow: auto;
+
+        &.middle {
+            display: flex;
+            align-items: center;
+        }
     }
 
     .my-modal-content {
         border-radius: 4px;
         width: 600px;
-        margin: 100px auto 0;
+        margin: 0 auto;
         background: #fff;
         &.my-open {
             animation: my-fade-in 300ms ease-in-out;
@@ -45,6 +51,7 @@ $out-time: 150ms;
 
     .my-modal-header {
         padding: 15px;
+        font-size: 14px;
         color: #aaa;
         border-bottom: 1px solid #e8e8e8;
         position: relative;
