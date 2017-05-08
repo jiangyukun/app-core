@@ -39,7 +39,7 @@ $out-time: 150ms;
     .my-modal-content {
         border-radius: 4px;
         width: 600px;
-        margin: 0 auto;
+        margin: 100px auto 0;
         background: #fff;
         &.my-open {
             animation: my-fade-in 300ms ease-in-out;
@@ -55,6 +55,7 @@ $out-time: 150ms;
         color: #aaa;
         border-bottom: 1px solid #e8e8e8;
         position: relative;
+
         .my-close-btn {
             position: absolute;
             top: 5px;
@@ -75,9 +76,16 @@ $out-time: 150ms;
         padding: 15px;
         border-bottom: 1px solid #e8e8e8;
     }
+
     .my-modal-footer {
         text-align: right;
         padding: 15px;
+    }
+
+    .no-border {
+        .my-modal-header, .my-modal-body {
+            border-bottom: none;
+        }
     }
 }
 

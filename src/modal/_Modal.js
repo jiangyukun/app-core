@@ -42,8 +42,7 @@ class _Modal extends React.Component {
       <div className="my-modal" tabIndex="-1" ref={c => this._container = c}>
         <div className={classnames('my-mask', this.props.show !== false ? 'my-open' : 'my-close')} onClick={this.onHide}></div>
         <div className="my-modal-container">
-          <div className={classnames('my-modal-content', this.props.className, this.props.show ? 'my-open' : 'my-close')}
-               style={{marginTop: this.props.top || '100px'}}>
+          <div className={classnames('my-modal-content', this.props.className, this.props.show ? 'my-open' : 'my-close')}>
             {this.props.children}
           </div>
         </div>
