@@ -39,7 +39,7 @@ $out-time: 150ms;
     .my-modal-content {
         border-radius: 4px;
         width: 600px;
-        margin: 100px auto 0;
+        margin: 100px auto;
         background: #fff;
         &.my-open {
             animation: my-fade-in 300ms ease-in-out;
