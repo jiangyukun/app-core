@@ -30,23 +30,34 @@ $out-time: 150ms;
         bottom: 0;
         overflow: auto;
 
+        &.top {
+            .my-modal-content {
+                margin: 100px auto 20px;
+            }
+        }
+
         &.middle {
             display: flex;
             align-items: center;
+
+            .my-open, .my-close {
+                margin: 0 auto;
+            }
+        }
+
+        .my-open {
+            animation: my-fade-in 300ms ease-in-out;
+        }
+        .my-close {
+            animation: my-fade-out $out-time ease-in-out;
         }
     }
 
     .my-modal-content {
         border-radius: 4px;
         width: 600px;
-        margin: 100px auto;
         background: #fff;
-        &.my-open {
-            animation: my-fade-in 300ms ease-in-out;
-        }
-        &.my-close {
-            animation: my-fade-out $out-time ease-in-out;
-        }
+        margin: 0 auto;
     }
 
     .my-modal-header {

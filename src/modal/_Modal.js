@@ -41,9 +41,11 @@ class _Modal extends React.Component {
     return (
       <div className="my-modal" tabIndex="-1" ref={c => this._container = c}>
         <div className={classnames('my-mask', this.props.show !== false ? 'my-open' : 'my-close')} onClick={this.onHide}></div>
-        <div className="my-modal-container">
-          <div className={classnames('my-modal-content', this.props.className, this.props.show ? 'my-open' : 'my-close')}>
-            {this.props.children}
+        <div className={classnames('my-modal-container', this.props.containerClass || 'top')}>
+          <div className={this.props.show ? 'my-open' : 'my-close'}>
+            <div className={classnames('my-modal-content', this.props.contentClass || this.props.className)}>
+              {this.props.children}
+            </div>
           </div>
         </div>
       </div>
@@ -59,6 +61,8 @@ class _Modal extends React.Component {
 }
 
 _Modal.propTypes = {
+  containerClass: PropTypes.string,
+  contentClass: PropTypes.string,
   className: PropTypes.string,
   show: PropTypes.bool,
   onHide: PropTypes.func,
