@@ -8,8 +8,9 @@ import classnames from 'classnames'
 class Body extends Component {
 
   render() {
+    const {className, ...otherProps} = this.props
     return (
-      <div className={classnames('my-modal-body', this.props.className)}>
+      <div className={classnames('my-modal-body', className)} {...otherProps}>
         {this.props.children}
       </div>
     )

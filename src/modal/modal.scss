@@ -39,18 +39,8 @@ $out-time: 150ms;
         &.middle {
             display: flex;
             align-items: center;
-
-            .my-open, .my-close {
-                margin: 0 auto;
-            }
         }
 
-        .my-open {
-            animation: my-fade-in 300ms ease-in-out;
-        }
-        .my-close {
-            animation: my-fade-out $out-time ease-in-out;
-        }
     }
 
     .my-modal-content {
@@ -58,6 +48,13 @@ $out-time: 150ms;
         width: 600px;
         background: #fff;
         margin: 0 auto;
+
+        &.my-open {
+            animation: my-fade-in 300ms ease-in-out;
+        }
+        &.my-close {
+            animation: my-fade-out $out-time ease-in-out;
+        }
     }
 
     .my-modal-header {

@@ -7,6 +7,10 @@ import classnames from 'classnames'
 import {events} from 'dom-helpers'
 
 class _Modal extends React.Component {
+  state = {
+    autoDetectCls: ''
+  }
+
   onHide = () => {
     this.props.onHide()
     setTimeout(() => this.onExited(), 120)
@@ -37,15 +41,20 @@ class _Modal extends React.Component {
     events.off(this._container, 'keyup', this.handleKeyUp)
   }
 
+  componentDidUpdate() {
+    if (this._wrap.scrollHeight > this._wrap.clientHeight) {
+      // this.setState({autoDetectCls: ''})
+    }
+  }
+
   render() {
+    const contentCls = classnames('my-modal-content', this.props.contentClass || this.props.className, this.props.show ? 'my-open' : 'my-close')
     return (
       <div className="my-modal" tabIndex="-1" ref={c => this._container = c}>
         <div className={classnames('my-mask', this.props.show !== false ? 'my-open' : 'my-close')} onClick={this.onHide}></div>
-        <div className={classnames('my-modal-container', this.props.containerClass || 'top')}>
-          <div className={this.props.show ? 'my-open' : 'my-close'}>
-            <div className={classnames('my-modal-content', this.props.contentClass || this.props.className)}>
-              {this.props.children}
-            </div>
+        <div ref={c => this._wrap = c} className={classnames('my-modal-container', this.props.containerClass || 'top')}>
+          <div className={contentCls}>
+            {this.props.children}
           </div>
         </div>
       </div>
