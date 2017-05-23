@@ -24,6 +24,7 @@ class _Modal extends React.Component {
     if (e.keyCode === 27 && e.target === this._container) {
       this.onHide()
     }
+    e.stopPropagation()
   }
 
   componentDidMount() {
