@@ -3,13 +3,31 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import {events} from 'dom-helpers'
 
+import Transition from './Transition'
+
+const Content = (props) => {
+  return (
+    <Transition show={props.show}>
+      <div className="my-modal-content default" style={props.style}>
+        {props.children}
+      </div>
+    </Transition>
+  )
+}
+
+const Container = (props) => {
+  const Content = props.contentComponent
+  return (
+    <div className="my-modal-container">
+      <Content {...props}/>
+    </div>
+  )
+}
+
 class _Modal extends React.Component {
-  state = {
-    autoDetectCls: ''
-  }
+  exited = false
 
   onHide = () => {
     this.props.onHide()
@@ -17,14 +35,14 @@ class _Modal extends React.Component {
   }
 
   onExited = () => {
+    this.exited = true
     this.props.onExited()
   }
 
   handleKeyUp = e => {
-    if (e.keyCode === 27 && e.target === this._container) {
+    if (e.keyCode === 27) {
       this.onHide()
     }
-    e.stopPropagation()
   }
 
   componentDidMount() {
@@ -40,24 +58,19 @@ class _Modal extends React.Component {
 
   componentWillUnmount() {
     events.off(this._container, 'keyup', this.handleKeyUp)
-  }
-
-  componentDidUpdate() {
-    if (this._wrap.scrollHeight > this._wrap.clientHeight) {
-      // this.setState({autoDetectCls: ''})
+    if (!this.exited) {
+      this.props.onExited()
     }
   }
 
   render() {
-    const contentCls = classnames('my-modal-content', this.props.contentClass || this.props.className, this.props.show ? 'my-open' : 'my-close')
+    const Container = this.props.containerComponent
     return (
       <div className="my-modal" tabIndex="-1" ref={c => this._container = c}>
-        <div className={classnames('my-mask', this.props.show !== false ? 'my-open' : 'my-close')} onClick={this.onHide}></div>
-        <div ref={c => this._wrap = c} className={classnames('my-modal-container', this.props.containerClass || 'top')}>
-          <div className={contentCls}>
-            {this.props.children}
-          </div>
-        </div>
+        <Transition show={this.props.show}>
+          <div className="my-mask" onClick={this.onHide}></div>
+        </Transition>
+        <Container {...this.props}/>
       </div>
     )
   }
@@ -71,12 +84,18 @@ class _Modal extends React.Component {
 }
 
 _Modal.propTypes = {
-  containerClass: PropTypes.string,
-  contentClass: PropTypes.string,
+  containerComponent: PropTypes.any,
+  contentComponent: PropTypes.any,
+
   className: PropTypes.string,
   show: PropTypes.bool,
   onHide: PropTypes.func,
-  onExited: PropTypes.func,
+  onExited: PropTypes.func
+}
+
+_Modal.defaultProps = {
+  containerComponent: Container,
+  contentComponent: Content
 }
 
 _Modal.childContextTypes = {

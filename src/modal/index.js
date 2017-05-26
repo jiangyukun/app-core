@@ -6,6 +6,7 @@ import Modal from './Modal'
 import Header from './Header'
 import Body from './Body'
 import Footer from './Footer'
+import Transition from './Transition'
 
 export default Modal
-export {Header, Body, Footer}
+export {Transition}

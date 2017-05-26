@@ -30,24 +30,19 @@ $out-time: 150ms;
         bottom: 0;
         overflow: auto;
 
-        &.top {
-            .my-modal-content {
-                margin: 100px auto 20px;
-            }
-        }
-
         &.middle {
             display: flex;
             align-items: center;
         }
-
     }
 
     .my-modal-content {
-        border-radius: 4px;
-        width: 600px;
-        background: #fff;
-        margin: 0 auto;
+        &.default {
+            border-radius: 4px;
+            width: 600px;
+            background: #fff;
+            margin: 50px auto;
+        }
 
         &.my-open {
             animation: my-fade-in 300ms ease-in-out;
