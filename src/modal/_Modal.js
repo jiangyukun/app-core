@@ -4,13 +4,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {events} from 'dom-helpers'
+import classnames from 'classnames'
 
 import Transition from './Transition'
 
 const Content = (props) => {
   return (
     <Transition show={props.show}>
-      <div className="my-modal-content default" style={props.style}>
+      <div className={classnames('my-modal-content default', props.className)} style={props.style}>
         {props.children}
       </div>
     </Transition>
