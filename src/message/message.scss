@@ -1,3 +1,21 @@
+@keyframes message-slide-down {
+    from {
+        top: -100px;
+    }
+    to {
+        top: 0;
+    }
+}
+
+@keyframes message-slide-up {
+    from {
+        top: 0;
+    }
+    to {
+        top: -100px;
+    }
+}
+
 .message-container {
     font-size: 12px;
     position: fixed;
@@ -5,6 +23,7 @@
     top: 10px;
     width: 100%;
     color: #fff;
+    pointer-events: none;
 
     .message-list {
         width: 500px;
@@ -18,10 +37,10 @@
         margin: 0 0 10px;
 
         &.in {
-            animation: slide-down 500ms ease-in-out;
+            animation: message-slide-down 500ms ease-in-out;
         }
         &.out {
-            animation: slide-up 200ms ease-in-out;
+            animation: message-slide-up 200ms ease-in-out;
         }
 
         &.success {
@@ -48,6 +67,7 @@
         }
 
         .close-message {
+            cursor: pointer;
             position: absolute;
             top: 10px;
             right: 10px;

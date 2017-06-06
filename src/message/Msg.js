@@ -5,7 +5,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-import {MESSAGE_TYPE} from './message-constants'
+import {MESSAGE_TYPE} from './message.constants'
 
 class Msg extends React.Component {
   state = {
@@ -31,13 +31,13 @@ class Msg extends React.Component {
       'message-item', this.state.show ? 'in' : 'out',
       {'success': msgType == MESSAGE_TYPE.SUCCESS},
       {'warning': msgType == MESSAGE_TYPE.WARNING},
-      {'failure': msgType == MESSAGE_TYPE.FAILURE},
+      {'failure': msgType == MESSAGE_TYPE.FAILURE}
     )
     return (
       <div className={className}>
         <div className="message-content">{content || ''}</div>
         <span className="close-message">
-          <i className="close-svg"></i>
+          <img src={require('./close.svg')} style={{width: '20px'}}/>
         </span>
       </div>
     )
@@ -47,7 +47,7 @@ class Msg extends React.Component {
 
 Msg.propTypes = {
   msg: PropTypes.object,
-  onExited: PropTypes.func,
+  onExited: PropTypes.func
 }
 
 export default Msg

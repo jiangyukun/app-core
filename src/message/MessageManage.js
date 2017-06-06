@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 import Messages from "./Messages"
 
-import {MESSAGE_STATUS} from './message-constants'
+import {MESSAGE_STATUS} from './message.constants'
 
 class MessageManage extends React.Component {
   onMsgExited = (msgId) => {

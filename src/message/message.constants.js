@@ -12,3 +12,6 @@ export const MESSAGE_STATUS = {
   SHOWING: 'SHOWING',
   SHOWED: 'SHOWED'
 }
+
+export const SHOW_MESSAGE = '___SHOW_MESSAGE'
+export const CHANGE_MESSAGE_STATUS = '___CHANGE_MESSAGE_STATUS'
