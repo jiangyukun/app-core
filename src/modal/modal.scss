@@ -53,10 +53,6 @@ $out-time: 150ms;
     }
 
     .my-modal-header {
-        padding: 15px;
-        font-size: 14px;
-        color: #aaa;
-        border-bottom: 1px solid #e8e8e8;
         position: relative;
 
         .my-close-btn {
@@ -73,6 +69,13 @@ $out-time: 150ms;
             transform: scale(2.5) rotate(45deg);
             color: #fff;
         }
+    }
+
+    .my-modal-title {
+        padding: 15px;
+        font-size: 14px;
+        color: #aaa;
+        border-bottom: 1px solid #e8e8e8;
     }
 
     .my-modal-body {

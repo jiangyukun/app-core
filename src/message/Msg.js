@@ -36,9 +36,6 @@ class Msg extends React.Component {
     return (
       <div className={className}>
         <div className="message-content">{content || ''}</div>
-        <span className="close-message">
-          <img src={require('./close.svg')} style={{width: '20px'}}/>
-        </span>
       </div>
     )
 
