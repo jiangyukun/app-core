@@ -17,6 +17,9 @@ function buildFile(filename, destination, babelOptions = {}) {
     const outputPath = path.join(destination, path.basename(filename))
     // console.log('%s => %s', filename, outputPath);
     buildContent(content, filename, outputPath, babelOptions)
+
+  } else if (path.extname(filename) === '.ts' || path.extname(filename) === '.tsx' || path.extname(filename) === '.jsx') {
+
   } else {
     let fileShortName = filename.substring(filename.lastIndexOf('\\'))
     fse.copy(filename, destination + fileShortName, {}, err => {

@@ -1,0 +1,66 @@
+
+.button {
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 12px;
+    border: 0;
+    //box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    background: #009a61;
+    border-radius: 4px;
+    font-size: 14px;
+
+    &[disabled] {
+        cursor: not-allowed;
+        background: lighten(#009a61, 50%);
+    }
+
+    &.edit {
+        background: #66afe9;
+        color: #333;
+        &[disabled] {
+            background: lighten(#66afe9, 25%);
+        }
+    }
+
+    &.default {
+        background: #fff;
+        color: #000;
+        border: 1px solid #ddd;
+    }
+
+    &.add {
+        background: #428bca;
+        &[disabled] {
+            background: lighten(#428bca, 50%);
+        }
+    }
+
+    &.danger {
+        background: #d9534f;
+        &[disabled] {
+            background: lighten(#d9534f, 50%);
+        }
+    }
+
+    &.closed {
+        background: #fff;
+        color: #777;
+        border: 1px solid #ddd;
+        box-shadow: none;
+    }
+
+    &.full {
+        width: 100%;
+    }
+}
+
+.button-group {
+    display: flex;
+    .button-item {
+        flex: 1;
+        padding: 0 15px;
+        .button {
+            width: 100%;
+        }
+    }
+}

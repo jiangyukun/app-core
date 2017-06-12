@@ -7,4 +7,4 @@ const smallShellProject = 'C:/Users/jiangyukun/WebstormProjects/smell-shell-cons
 export const repoRoot = path.resolve(__dirname, '../')
 
 export const srcRoot = path.join(repoRoot, 'src/')
-export const libRoot = simoConsoleProject
+export const libRoot = smallShellProject
