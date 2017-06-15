@@ -58,9 +58,16 @@ class Confirm extends React.Component<ConfirmProps, any> {
         </Modal.Header>
 
         <Modal.Body>
-          <div style={{fontSize: '14px'}}>
-            {this.props.message}
-          </div>
+          {
+            this.props.message && (
+              <div style={{fontSize: '14px'}}>
+                {this.props.message}
+              </div>
+            )
+          }
+          {
+            !this.props.message && this.props.children
+          }
         </Modal.Body>
 
         <Modal.Footer>

@@ -4,12 +4,12 @@
 import React from 'react'
 import classnames from 'classnames'
 import Transition from '../../modal/Transition'
-import './small-dialog-content.scss'
+import './full-dialog-content.scss'
 
 export default (props) => {
   return (
     <Transition show={props.show}>
-      <div className="my-modal-content small-dialog-content">
+      <div className={classnames("my-modal-content full-dialog-content", props.className)}>
         {props.children}
       </div>
     </Transition>

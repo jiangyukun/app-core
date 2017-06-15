@@ -2,6 +2,7 @@
  * Created by jiangyukun on 2017/5/26.
  */
 import React from 'react'
+import classnames from 'classnames'
 import Transition from '../../modal/Transition'
 import './image-dialog-content.scss'
 
