@@ -30,11 +30,21 @@ function buildFile(filename, destination, babelOptions = {}) {
   }
 }
 
+function copyFile(filename, destination) {
+  let fileShortName = filename.substring(filename.lastIndexOf('\\'))
+  fse.copy(filename, destination + fileShortName, {}, err => {
+    if (err) {
+      console.log(err)
+    }
+  })
+}
+
 export default function buildBabel(folderPath, destination, babelOptions = {}, firstFolder = true) {
   let stats = fs.statSync(folderPath)
 
   if (stats.isFile()) {
-    buildFile(folderPath, destination, babelOptions)
+    // buildFile(folderPath, destination, babelOptions)
+    copyFile(folderPath, destination)
   } else if (stats.isDirectory()) {
     let outputPath = firstFolder ? destination : path.join(destination, path.basename(folderPath))
     let files = fs.readdirSync(folderPath).map(file => path.join(folderPath, file))

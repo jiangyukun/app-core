@@ -1,6 +1,6 @@
-$out-time: 150ms;
+$out-time: 240ms;
 
-.my-modal {
+.__modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -19,6 +19,7 @@ $out-time: 150ms;
         }
         &.my-close {
             animation: my-mask-out $out-time ease-in-out;
+            animation-fill-mode: forwards;
         }
     }
 
@@ -29,11 +30,6 @@ $out-time: 150ms;
         right: 0;
         bottom: 0;
         overflow: auto;
-
-        &.middle {
-            display: flex;
-            align-items: center;
-        }
     }
 
     .my-modal-content {
@@ -49,6 +45,7 @@ $out-time: 150ms;
         }
         &.my-close {
             animation: my-fade-out $out-time ease-in-out;
+            animation-fill-mode: forwards;
         }
     }
 
@@ -92,28 +89,6 @@ $out-time: 150ms;
         .my-modal-header, .my-modal-body {
             border-bottom: none;
         }
-    }
-}
-
-@keyframes my-slide-down {
-    from {
-        transform: translateY(-200px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes my-slide-up {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(-200px);
-        opacity: 0;
     }
 }
 

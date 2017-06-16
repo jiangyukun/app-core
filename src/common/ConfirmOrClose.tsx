@@ -7,13 +7,13 @@ import Button from '../button/Button'
 interface ConfirmOrCloseProps {
   onCancel: () => void
   onConfirm: () => void
-  valid?: boolean
+  disabled?: boolean
   okBtnName?: string
 }
 
 class ConfirmOrClose extends React.Component<ConfirmOrCloseProps, any> {
   static defaultProps = {
-    valid: true,
+    disabled: false,
     okBtnName: '确定'
   }
 
@@ -26,7 +26,7 @@ class ConfirmOrClose extends React.Component<ConfirmOrCloseProps, any> {
           </Button>
         </div>
         <div className="button-item">
-          <Button type="full" onClick={this.props.onConfirm} disabled={!this.props.valid}>
+          <Button type="full" onClick={this.props.onConfirm} disabled={this.props.disabled}>
             {this.props.okBtnName}
           </Button>
         </div>

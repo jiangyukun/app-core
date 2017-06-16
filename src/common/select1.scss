@@ -40,6 +40,7 @@
     &.disabled {
         .selected-item {
             cursor: not-allowed;
+            background-color: #eeeeee;
         }
     }
 

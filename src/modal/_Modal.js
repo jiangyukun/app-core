@@ -32,7 +32,7 @@ class _Modal extends React.Component {
 
   onHide = () => {
     this.props.onHide()
-    setTimeout(() => this.onExited(), 120)
+    setTimeout(() => this.onExited(), 240)
   }
 
   onExited = () => {
@@ -67,7 +67,7 @@ class _Modal extends React.Component {
   render() {
     const Container = this.props.containerComponent
     return (
-      <div className="my-modal" tabIndex="-1" ref={c => this._container = c}>
+      <div className="__modal" tabIndex="-1" ref={c => this._container = c}>
         <Transition show={this.props.show}>
           <div className="my-mask" onClick={this.onHide}></div>
         </Transition>

@@ -1,7 +1,7 @@
 /**
  * 下拉框控件
  */
-import React, {Component} from 'react'
+import React from 'react'
 import {findDOMNode} from 'react-dom'
 import classnames from 'classnames'
 import {events} from 'dom-helpers'
@@ -24,7 +24,7 @@ interface Select1Props {
   disabled?: boolean
 }
 
-class Select1 extends Component<Select1Props, any> {
+class Select1 extends React.Component<Select1Props, any> {
   static defaultProps = {
     value: '',
     initCount: 10,

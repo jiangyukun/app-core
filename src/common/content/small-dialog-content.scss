@@ -1,7 +1,9 @@
-.small-dialog-content {
-    position: relative;
-    width: 300px;
-    background: #f0f0f0;
-    margin: 125px auto;
-    border-radius: 4px;
+.__modal {
+    .small-dialog-content {
+        position: relative;
+        width: 300px;
+        background: #f0f0f0;
+        margin: 125px auto;
+        border-radius: 4px;
+    }
 }
