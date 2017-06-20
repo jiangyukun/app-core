@@ -3,31 +3,31 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import classnames from 'classnames'
 
 class TextArea extends React.Component {
   constructor(props) {
     super()
-    this.isExceed = props.value.length <= props.limit
+    this.isExceed = props.value.length > props.limit
   }
 
   handleChange = (e) => {
+    this.props.onChange(e)
     if (e.target.value.length > this.props.limit) {
       if (!this.isExceed) {
         this.isExceed = true
         this.props.onExceed()
       }
     } else {
-      this.props.onChange(e)
       this.isExceed = false
     }
   }
 
   render() {
-    let {onChange, limit, onExceed, ...otherProps} = this.props
+    let {className, onChange, limit, onExceed, ...otherProps} = this.props
     return (
       <div>
-        <textarea {...otherProps} onChange={this.handleChange}/>
+        <textarea {...otherProps} className={classnames(className, {invalid: this.isExceed})} onChange={this.handleChange}/>
         <div className="input-text-count">{this.props.value.length}/{this.props.limit}</div>
       </div>
     )

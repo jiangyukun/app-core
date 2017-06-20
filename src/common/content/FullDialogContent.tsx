@@ -9,7 +9,7 @@ import './full-dialog-content.scss'
 export default (props) => {
   return (
     <Transition show={props.show}>
-      <div className={classnames("my-modal-content full-dialog-content", props.className)}>
+      <div className={classnames("my-modal-content full-dialog-content", props.className)} style={props.style}>
         {props.children}
       </div>
     </Transition>

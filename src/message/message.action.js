@@ -1,10 +1,18 @@
 /**
  * Created by jiangyukun on 2017/6/1.
  */
-import {SHOW_MESSAGE, CHANGE_MESSAGE_STATUS} from './message.constants'
+import {SHOW_MESSAGE, CHANGE_MESSAGE_STATUS, MESSAGE_TYPE} from './message.constants'
 
 export function showMessage(messageInfo) {
   const {id, msgType, content, timeout} = messageInfo
+  return {
+    type: SHOW_MESSAGE, message: {id, msgType, content, timeout}
+  }
+}
+
+export function showWarning(messageInfo) {
+  let {id, msgType, content, timeout} = messageInfo
+  msgType = MESSAGE_TYPE.WARNING
   return {
     type: SHOW_MESSAGE, message: {id, msgType, content, timeout}
   }
