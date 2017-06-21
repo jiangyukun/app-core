@@ -29,9 +29,9 @@
     }
 
     &.add {
-        background: #428bca;
+        background: #009a61;
         &[disabled] {
-            background: lighten(#428bca, 50%);
+            background: lighten(#009a61, 50%);
         }
     }
 
