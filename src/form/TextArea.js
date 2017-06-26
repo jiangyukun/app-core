@@ -13,9 +13,9 @@ class TextArea extends React.Component {
     }
   }
 
-  handleChange = (e) => {
-    this.props.onChange(e)
-    if (e.target.value.length > this.props.limit) {
+  componentWillReceiveProps(nextProps) {
+    this.setState({isExceed: nextProps.value.length > nextProps.limit})
+    if (this.props.value.length > this.props.limit) {
       if (!this.state.isExceed) {
         this.setState({isExceed: true})
         this.props.onExceed()
@@ -25,15 +25,11 @@ class TextArea extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({isExceed: nextProps.value.length > nextProps.limit})
-  }
-
   render() {
-    let {className, onChange, limit, onExceed, ...otherProps} = this.props
+    let {className, limit, onExceed, ...otherProps} = this.props
     return (
       <div>
-        <textarea {...otherProps} className={classnames(className, {invalid: this.state.isExceed})} onChange={this.handleChange}/>
+        <textarea {...otherProps} className={classnames(className, {invalid: this.state.isExceed})}/>
         <div className="input-text-count">{this.props.value.length}/{this.props.limit}</div>
       </div>
     )
