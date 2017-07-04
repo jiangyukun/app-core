@@ -19,7 +19,7 @@ class Button extends React.Component<any, any> {
     const {className, ...otherProps} = this.props
 
     return (
-      <button className={classnames('button', this.props.type, className)} {...otherProps}>
+      <button className={classnames('__button', this.props.type, className)} {...otherProps}>
       </button>
     )
   }

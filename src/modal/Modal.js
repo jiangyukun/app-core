@@ -11,6 +11,7 @@ import {
 
 import {addClass, removeClass} from 'dom-helpers/class'
 
+import './modal.scss'
 import _Modal from './_Modal'
 import Header from './Header'
 import Title from './Title'
@@ -43,6 +44,7 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
+  contentComponent: PropTypes.any,
   className: PropTypes.string,
   show: PropTypes.bool,
   onHide: PropTypes.func,

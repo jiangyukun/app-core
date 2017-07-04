@@ -2,9 +2,10 @@
  * Created by jiangyukun on 2017/5/26.
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-class Transition extends React.Component {
+class Transition extends React.PureComponent {
 
   render() {
     const transitionClass = this.props.show ? 'my-open' : 'my-close'
@@ -17,6 +18,10 @@ class Transition extends React.Component {
       )
     })
   }
+}
+
+Transition.propTypes = {
+  show: PropTypes.bool
 }
 
 export default Transition

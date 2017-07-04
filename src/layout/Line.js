@@ -3,11 +3,13 @@
  */
 import React from 'react'
 
+import './layout.scss'
+
 class Line extends React.Component {
 
   render() {
     return (
-      <div className="line">
+      <div className="__line">
         {this.props.children}
       </div>
     )

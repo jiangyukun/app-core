@@ -72,11 +72,9 @@
     "yargs": "^7.1.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
     "dom-helpers": "^3.2.1",
-    "lodash": "^4.17.4",
-    "prop-types": "^15.5.8",
+    "prop-types": "15.5.10",
     "react": "^15.5.0",
     "react-dom": "^15.5.0"
   }

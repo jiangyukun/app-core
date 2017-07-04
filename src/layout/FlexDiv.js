@@ -10,7 +10,7 @@ class FlexDiv extends React.Component {
   render() {
     const {className, otherProps} = this.props
     return (
-      <div className={classnames('flex middle', className)} {...otherProps}>
+      <div className={classnames('__flex middle', className)} {...otherProps}>
         {this.props.children}
       </div>
     )

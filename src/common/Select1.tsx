@@ -70,7 +70,7 @@ class Select1 extends React.Component<Select1Props, any> {
   }
 
   close() {
-    this.setState({active: false, touched: true})
+    this.setState({active: false, touched: true, touchIndex: -1})
   }
 
   open() {
@@ -85,10 +85,6 @@ class Select1 extends React.Component<Select1Props, any> {
     this.setState({selectIndex: index})
     this.props.onChange(option.value, option.text)
     this.close()
-  }
-
-  touch(index) {
-    this.setState({touchIndex: index})
   }
 
   search(event) {
@@ -197,7 +193,7 @@ class Select1 extends React.Component<Select1Props, any> {
                 <li key={index}
                     className={classnames('select-item', {'selected': index == this.state.selectIndex}, {'last-touched': index == this.state.touchIndex})}
                     onClick={e => this.select(option, index)}
-                    onMouseEnter={e => this.touch(index)}>
+                    onMouseEnter={() => this.setState({touchIndex: index})}>
                   {option.text}
                 </li>
               )
