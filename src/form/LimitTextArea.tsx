@@ -5,7 +5,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-class TextArea extends React.Component {
+interface TextAreaProps {
+  value: string,
+  onChange: (e: any) => void
+  limit: number,
+  onExceed: () => void
+
+  className?: string
+}
+
+class TextArea extends React.Component<TextAreaProps> {
+  state: {
+    isExceed: boolean
+  }
+
   constructor(props) {
     super()
     this.state = {
@@ -34,13 +47,6 @@ class TextArea extends React.Component {
       </div>
     )
   }
-}
-
-TextArea.propTypes = {
-  value: PropTypes.string,
-  limit: PropTypes.number,
-  onExceed: PropTypes.func,
-  onChange: PropTypes.func
 }
 
 export default TextArea

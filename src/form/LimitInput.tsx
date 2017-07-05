@@ -2,10 +2,21 @@
  * Created by jiangyukun on 2017/6/9.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-class Input extends React.Component {
+interface InputProps {
+  value: string
+  onChange: (e: any) => void
+  limit: number
+  onExceed: () => void
+  className?: string
+}
+
+class Input extends React.Component<InputProps> {
+  state: {
+    isExceed: boolean
+  }
+
   constructor(props) {
     super()
     this.state = {
@@ -31,13 +42,6 @@ class Input extends React.Component {
       <input {...otherProps} className={classnames(className, {invalid: this.state.isExceed})}/>
     )
   }
-}
-
-Input.propTypes = {
-  value: PropTypes.string,
-  limit: PropTypes.number,
-  onExceed: PropTypes.func,
-  onChange: PropTypes.func
 }
 
 export default Input
