@@ -2,19 +2,18 @@
  * Created by jiangyukun on 2017/6/9.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-interface TextAreaProps {
-  value: string,
+interface LimitTextAreaProps {
+  value: string
   onChange: (e: any) => void
-  limit: number,
+  limit: number
   onExceed: () => void
 
   className?: string
 }
 
-class TextArea extends React.Component<TextAreaProps> {
+class LimitTextArea extends React.Component<LimitTextAreaProps> {
   state: {
     isExceed: boolean
   }
@@ -42,11 +41,11 @@ class TextArea extends React.Component<TextAreaProps> {
     let {className, limit, onExceed, ...otherProps} = this.props
     return (
       <div>
-        <textarea {...otherProps} className={classnames(className, {invalid: this.state.isExceed})}/>
-        <div className="input-text-count">{this.props.value.length}/{this.props.limit}</div>
+        <textarea {...otherProps} className={classnames('__input', className, {invalid: this.state.isExceed})}/>
+        <div className="__input-text-count">{this.props.value.length}/{this.props.limit}</div>
       </div>
     )
   }
 }
 
-export default TextArea
+export default LimitTextArea

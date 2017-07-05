@@ -2,11 +2,15 @@
  * Created by jiangyukun on 2017/5/3.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import Msg from './Msg'
 
-class Messages extends React.Component {
+interface MessagesProps {
+  messageList: any[]
+  onExited: (msgId: string) => void
+}
+
+class Messages extends React.Component<MessagesProps> {
 
   render() {
     return (
@@ -21,11 +25,6 @@ class Messages extends React.Component {
       </div>
     )
   }
-}
-
-Messages.propTypes = {
-  messageList: PropTypes.array,
-  onExited: PropTypes.func,
 }
 
 export default Messages

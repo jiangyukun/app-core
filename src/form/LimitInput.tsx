@@ -4,7 +4,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-interface InputProps {
+interface LimitInputProps extends React.HTMLProps<HTMLInputElement> {
   value: string
   onChange: (e: any) => void
   limit: number
@@ -12,7 +12,7 @@ interface InputProps {
   className?: string
 }
 
-class Input extends React.Component<InputProps> {
+class LimitInput extends React.Component<LimitInputProps> {
   state: {
     isExceed: boolean
   }
@@ -39,9 +39,9 @@ class Input extends React.Component<InputProps> {
   render() {
     let {className, limit, onExceed, ...otherProps} = this.props
     return (
-      <input {...otherProps} className={classnames(className, {invalid: this.state.isExceed})}/>
+      <input {...otherProps} className={classnames('__input', className, {invalid: this.state.isExceed})}/>
     )
   }
 }
 
-export default Input
+export default LimitInput

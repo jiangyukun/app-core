@@ -17,6 +17,7 @@ interface Select1Props {
   options: { value: string, text: string }[]
   onChange: (value: string, text: string) => void
 
+  placeholder?: string
   className?: string
   initCount?: number
   required?: boolean
@@ -31,7 +32,6 @@ class Select1 extends React.Component<Select1Props, any> {
     showClear: false,
     disabled: false,
     options: [],
-    onChange: () => null
   }
 
   _container: any
@@ -172,7 +172,7 @@ class Select1 extends React.Component<Select1Props, any> {
   }
 
   render() {
-    let selectText = '请选择'
+    let selectText = this.props.placeholder || '请选择'
     this.props.options.forEach(option => {
       if (option.value == this.props.value) {
         selectText = option.text

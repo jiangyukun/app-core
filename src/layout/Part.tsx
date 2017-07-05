@@ -2,12 +2,20 @@
  * Created by jiangyukun on 2017/4/18.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 
-class Part extends React.Component {
+interface PartProps extends React.HTMLProps<HTMLDivElement> {
+  weight?: number
+  textAlign?: string
+}
+
+class Part extends React.Component<PartProps> {
+  static defaultProps = {
+    weight: 1,
+    textAlign: 'left'
+  }
 
   render() {
-    const style = {}
+    const style: any = {}
     const {weight, textAlign, ...otherProps} = this.props
     style.flex = weight
     style.textAlign = textAlign
@@ -18,17 +26,6 @@ class Part extends React.Component {
       </div>
     )
   }
-}
-
-Part.defaultProps = {
-  weight: 1,
-  textAlign: 'left'
-}
-
-Part.propTypes = {
-  className: PropTypes.string,
-  weight: PropTypes.number,
-  textAlign: PropTypes.string,
 }
 
 export default Part

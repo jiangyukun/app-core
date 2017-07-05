@@ -2,12 +2,16 @@
  * Created by jiangyukun on 2017/5/3.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 import {MESSAGE_TYPE} from './message.constants'
 
-class Msg extends React.Component {
+interface MsgProps {
+  msg: any
+  onExited: (id: string) => void
+}
+
+class Msg extends React.Component<MsgProps> {
   state = {
     show: true
   }
@@ -40,11 +44,6 @@ class Msg extends React.Component {
     )
 
   }
-}
-
-Msg.propTypes = {
-  msg: PropTypes.object,
-  onExited: PropTypes.func
 }
 
 export default Msg

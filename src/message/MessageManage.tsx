@@ -2,13 +2,18 @@
  * Created by jiangyukun on 2017/5/3.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 
+import './message.scss'
 import Messages from "./Messages"
-
 import {MESSAGE_STATUS} from './message.constants'
+import Portal from '../modal/Portal'
 
-class MessageManage extends React.Component {
+interface MessageManageProps {
+  changeMessageStatus: any
+  messageList: any[]
+}
+
+class MessageManage extends React.Component<MessageManageProps> {
   onMsgExited = (msgId) => {
     this.props.changeMessageStatus(msgId, MESSAGE_STATUS.SHOWED)
   }
@@ -23,14 +28,13 @@ class MessageManage extends React.Component {
     const messageList = this.props.messageList.filter(msg => msg.status != MESSAGE_STATUS.SHOWED)
 
     return (
-      <Messages messageList={messageList} onExited={this.onMsgExited}/>
+      <Portal>
+        <div className="message-container">
+          <Messages messageList={messageList} onExited={this.onMsgExited}/>
+        </div>
+      </Portal>
     )
   }
-}
-
-MessageManage.propTypes = {
-  changeMessageStatus: PropTypes.func,
-  messageList: PropTypes.array,
 }
 
 export default MessageManage

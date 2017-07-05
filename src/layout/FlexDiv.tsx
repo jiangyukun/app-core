@@ -5,20 +5,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-class FlexDiv extends React.Component {
+interface FlexDivProps extends React.HTMLProps<HTMLDivElement>{
+
+}
+
+class FlexDiv extends React.Component<FlexDivProps> {
 
   render() {
-    const {className, otherProps} = this.props
+    const {className, ...otherProps} = this.props
     return (
       <div className={classnames('__flex middle', className)} {...otherProps}>
         {this.props.children}
       </div>
     )
   }
-}
-
-FlexDiv.propTypes = {
-  className: PropTypes.string
 }
 
 export default FlexDiv

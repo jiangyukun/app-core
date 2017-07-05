@@ -1,6 +1,23 @@
-.input-text-count {
+.__input-text-count {
     margin-top: 5px;
     text-align: right;
     color: gray;
     font-size: 12px;
+}
+
+.__input {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid #cfdadd;
+    border-radius: 3px;
+    padding: 5px 10px;
+    outline: none;
+
+    &:focus {
+        border: 1px solid #00a854;
+    }
+
+    &.invalid {
+        border: 1px solid #d9534f;
+    }
 }
