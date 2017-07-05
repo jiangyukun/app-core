@@ -4,7 +4,15 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
-class Header extends Component {
+interface HeaderProps {
+  closeButton?: boolean
+}
+
+class Header extends Component<HeaderProps> {
+  static contextTypes = {
+    onHide: PropTypes.func
+  }
+
   onHide = () => {
     this.context.onHide()
   }
@@ -23,14 +31,6 @@ class Header extends Component {
       </div>
     )
   }
-}
-
-Header.propTypes = {
-  closeButton: PropTypes.bool
-}
-
-Header.contextTypes = {
-  onHide: PropTypes.func
 }
 
 export default Header

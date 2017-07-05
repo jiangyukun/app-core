@@ -6,7 +6,13 @@ import PropTypes from 'prop-types'
 import {events} from 'dom-helpers'
 import classnames from 'classnames'
 
+import './modal.scss'
+import Portal from './Portal'
 import Transition from './Transition'
+import Header from './Header'
+import Title from './Title'
+import Body from './Body'
+import Footer from './Footer'
 
 const Content = (props) => {
   return (
@@ -27,7 +33,31 @@ const Container = (props) => {
   )
 }
 
-class _Modal extends React.Component {
+interface ModalProps {
+  containerComponent?: any,
+  contentComponent?: any,
+
+  className?: string,
+  show: boolean,
+  onHide: () => void,
+  onExited: () => void,
+}
+
+class Modal extends React.Component<ModalProps> {
+  static Header = Header
+  static Title = Title
+  static Body = Body
+  static Footer = Footer
+  static defaultProps = {
+    containerComponent: Container,
+    contentComponent: Content
+  }
+  static childContextTypes = {
+    onHide: PropTypes.func,
+    onExited: PropTypes.func
+  }
+
+  _container: HTMLDivElement
   exited = false
 
   onHide = () => {
@@ -67,12 +97,14 @@ class _Modal extends React.Component {
   render() {
     const Container = this.props.containerComponent
     return (
-      <div className="__modal" tabIndex="-1" ref={c => this._container = c}>
-        <Transition show={this.props.show}>
-          <div className="my-mask" onClick={this.onHide}></div>
-        </Transition>
-        <Container {...this.props}/>
-      </div>
+      <Portal>
+        <div className="__modal" tabIndex={-1} ref={c => this._container = c}>
+          <Transition show={this.props.show}>
+            <div className="my-mask" onClick={this.onHide}></div>
+          </Transition>
+          <Container {...this.props}/>
+        </div>
+      </Portal>
     )
   }
 
@@ -84,24 +116,4 @@ class _Modal extends React.Component {
   }
 }
 
-_Modal.propTypes = {
-  containerComponent: PropTypes.any,
-  contentComponent: PropTypes.any,
-
-  className: PropTypes.string,
-  show: PropTypes.bool,
-  onHide: PropTypes.func,
-  onExited: PropTypes.func
-}
-
-_Modal.defaultProps = {
-  containerComponent: Container,
-  contentComponent: Content
-}
-
-_Modal.childContextTypes = {
-  onHide: PropTypes.func,
-  onExited: PropTypes.func
-}
-
-export default _Modal
+export default Modal

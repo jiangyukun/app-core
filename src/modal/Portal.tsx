@@ -2,7 +2,7 @@
  * 将组件移到body下面
  * Created by jiangyukun on 2017/2/20.
  */
-import React, {Component} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   unmountComponentAtNode,
@@ -11,24 +11,18 @@ import {
 
 import {addClass, removeClass} from 'dom-helpers/class'
 
-import './modal.scss'
-import _Modal from './_Modal'
-import Header from './Header'
-import Title from './Title'
-import Body from './Body'
-import Footer from './Footer'
-
-class Modal extends Component {
+class Portal extends React.Component<any> {
+  container: HTMLDivElement
   componentDidMount() {
     this.container = document.createElement('div')
     document.body.appendChild(this.container)
-    renderSubtreeIntoContainer(this, <_Modal {...this.props}/>, this.container)
+    renderSubtreeIntoContainer(this, <div {...this.props}/>, this.container)
     // 使页面无法滚动
     addClass(document.getElementsByTagName('html')[0], 'modal-opened')
   }
 
   componentDidUpdate() {
-    renderSubtreeIntoContainer(this, <_Modal {...this.props}/>, this.container)
+    renderSubtreeIntoContainer(this, <div {...this.props}/>, this.container)
   }
 
   componentWillUnmount() {
@@ -43,17 +37,4 @@ class Modal extends Component {
   }
 }
 
-Modal.propTypes = {
-  contentComponent: PropTypes.any,
-  className: PropTypes.string,
-  show: PropTypes.bool,
-  onHide: PropTypes.func,
-  onExited: PropTypes.func
-}
-
-Modal.Header = Header
-Modal.Title = Title
-Modal.Body = Body
-Modal.Footer = Footer
-
-export default Modal
+export default Portal

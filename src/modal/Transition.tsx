@@ -5,7 +5,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-class Transition extends React.PureComponent {
+interface TransitionProps {
+  show: boolean
+}
+
+class Transition extends React.PureComponent<TransitionProps> {
 
   render() {
     const transitionClass = this.props.show ? 'my-open' : 'my-close'
@@ -18,10 +22,6 @@ class Transition extends React.PureComponent {
       )
     })
   }
-}
-
-Transition.propTypes = {
-  show: PropTypes.bool
 }
 
 export default Transition
