@@ -28,7 +28,7 @@ export default function message(iState = fromJS(initValue), action) {
   function _handleMessage(message) {
     let id = message.id
     let timeout = message.timeout
-    let msgType = message.timeout
+    let msgType = message.msgType
     if (!id) {
       id = '__auto_id__' + uid++
     }

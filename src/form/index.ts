@@ -1,7 +1,7 @@
 /**
  * Created by jiangyukun on 2017/6/9.
  */
-import Input from './Input'
-import TextArea from './TextArea'
+import LimitInput from './LimitInput'
+import LimitTextArea from './LimitTextArea'
 
-export {TextArea, Input}
+export {LimitInput, LimitTextArea}
