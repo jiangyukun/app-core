@@ -6,6 +6,10 @@ const initValue = {
 }
 let uid = 1
 
+export function getMsgId() {
+  return '__auto_msg_id__' + uid++
+}
+
 export default function message(iState = fromJS(initValue), action) {
 
   let nextIState = iState
@@ -30,7 +34,7 @@ export default function message(iState = fromJS(initValue), action) {
     let timeout = message.timeout
     let msgType = message.msgType
     if (!id) {
-      id = '__auto_id__' + uid++
+      id = getMsgId()
     }
     if (typeof timeout != 'number') {
       timeout = 3000

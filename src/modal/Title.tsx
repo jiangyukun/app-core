@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 
-class Title extends Component {
+class Title extends Component<any> {
   render() {
     return (
       <div className="my-modal-title">

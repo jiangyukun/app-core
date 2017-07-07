@@ -1,9 +1,10 @@
 /**
  * Created by jiangyukun on 2017/6/1.
  */
+import Message from './Message.d'
 import {SHOW_MESSAGE, CHANGE_MESSAGE_STATUS, MESSAGE_TYPE} from './message.constants'
 
-export function showMessage(messageInfo) {
+export function showMessage(messageInfo: Message) {
   const {id, msgType, content, timeout} = messageInfo
   return {
     type: SHOW_MESSAGE, message: {id, msgType, content, timeout}

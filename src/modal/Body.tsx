@@ -1,12 +1,10 @@
 /**
  * Created by jiangyukun on 2017/2/20.
  */
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import classnames from 'classnames'
 
-class Body extends Component {
-
+class Body extends React.Component<React.HTMLProps<HTMLDivElement>> {
   render() {
     const {className, ...otherProps} = this.props
     return (
@@ -15,10 +13,6 @@ class Body extends Component {
       </div>
     )
   }
-}
-
-Body.propTypes = {
-  className: PropTypes.string
 }
 
 export default Body

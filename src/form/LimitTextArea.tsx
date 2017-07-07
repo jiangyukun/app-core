@@ -4,7 +4,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-interface LimitTextAreaProps {
+interface LimitTextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {
   value: string
   onChange: (e: any) => void
   limit: number
@@ -42,7 +42,7 @@ class LimitTextArea extends React.Component<LimitTextAreaProps> {
     return (
       <div>
         <textarea {...otherProps} className={classnames('__input', className, {invalid: this.state.isExceed})}/>
-        <div className="__input-text-count">{this.props.value.length}/{this.props.limit}</div>
+        <div className="__input-text-count">{this.props.value.length}/{limit}</div>
       </div>
     )
   }

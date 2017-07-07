@@ -5,6 +5,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {events} from 'dom-helpers'
 import classnames from 'classnames'
+import {addClass, removeClass} from 'dom-helpers/class'
 
 import './modal.scss'
 import Portal from './Portal'
@@ -79,6 +80,8 @@ class Modal extends React.Component<ModalProps> {
   componentDidMount() {
     this._container.focus()
     events.on(this._container, 'keyup', this.handleKeyUp)
+    // 使页面无法滚动
+    addClass(document.getElementsByTagName('html')[0], 'modal-opened')
   }
 
   componentWillReceiveProps(newProps) {
@@ -92,6 +95,8 @@ class Modal extends React.Component<ModalProps> {
     if (!this.exited) {
       this.props.onExited()
     }
+    // 取消页面无法滚动
+    removeClass(document.getElementsByTagName('html')[0], 'modal-opened')
   }
 
   render() {
