@@ -4,7 +4,7 @@
 import Message from './Message.d'
 import {SHOW_MESSAGE, CHANGE_MESSAGE_STATUS, MESSAGE_TYPE} from './message.constants'
 
-export function showMessage(messageInfo: Message) {
+export function showMessage(messageInfo: Message | any) {
   const {id, msgType, content, timeout} = messageInfo
   return {
     type: SHOW_MESSAGE, message: {id, msgType, content, timeout}

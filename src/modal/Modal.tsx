@@ -35,13 +35,14 @@ const Container = (props) => {
 }
 
 interface ModalProps {
-  containerComponent?: any,
-  contentComponent?: any,
+  containerComponent?: any
+  contentComponent?: any
 
-  className?: string,
-  show: boolean,
-  onHide: () => void,
-  onExited: () => void,
+  className?: string
+  style?: any
+  show: boolean
+  onHide: () => void
+  onExited: () => void
 }
 
 class Modal extends React.Component<ModalProps> {
