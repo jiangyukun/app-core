@@ -17,7 +17,7 @@ class Part extends React.Component<PartProps> {
   render() {
     let {style, weight, textAlign, ...otherProps} = this.props
     if (!style) style = {}
-    style.flexGrow = weight
+    style.flex = weight
     style.textAlign = textAlign
 
     return (

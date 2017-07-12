@@ -12,4 +12,8 @@
     &.wrap {
         flex-wrap: wrap;
     }
+
+    & + .__flex {
+        margin-top: 15px;
+    }
 }
