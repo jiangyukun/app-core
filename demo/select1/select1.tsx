@@ -12,13 +12,24 @@ let o = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map(d => ({value: d + '', te
 
 class S extends React.Component<any> {
   state = {
-    value: ''
+    value: '',
+    loadSuccess: false
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({loadSuccess: !this.state.loadSuccess})
+    }, 2000)
   }
 
   render() {
     return (
       <div className="container">
-        <Select1 showClear={true} disabled={true} options={o} value={this.state.value} onChange={v => this.setState({value: v})}/>
+        <Select1
+          lazyLoad={true}
+          loadSuccess={this.state.loadSuccess}
+          onFirstOpen={() => null}
+          options={o} value={this.state.value} onChange={v => this.setState({value: v})}/>
       </div>
     )
   }

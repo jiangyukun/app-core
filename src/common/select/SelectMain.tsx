@@ -14,13 +14,23 @@ interface SelectMainProps {
 }
 
 class SelectMain extends React.Component<SelectMainProps> {
+  state = {
+    touched: false
+  }
+
+  componentWillReceiveProps(nextProps: SelectMainProps) {
+    if (!this.state.touched) {
+      if (nextProps.active && !this.props.active) {
+        this.setState({touched: true})
+      }
+    }
+  }
+
   render() {
     return (
       <div
         onClick={this.props.onClick}
-        className={classnames('selected-item',
-          {'open': this.props.active},
-          {'invalid': this.props.invalid})}
+        className={classnames('selected-item', {'open': this.props.active}, {'invalid': this.props.invalid && this.state.touched})}
       >
         <span className="select-item-text">{this.props.text}</span>
         <span className="dropdown"><b></b></span>

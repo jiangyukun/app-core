@@ -8,6 +8,7 @@ import './select1.scss'
 import OuterClick from '../core/OuterClick'
 import SelectMain from './select/SelectMain'
 import Options from './select/Options'
+import Spinner from './Spinner'
 
 const keyCode = {
   UP: 38, DOWN: 40, ENTER: 13, ESCAPE: 27
@@ -24,6 +25,10 @@ interface Select1Props {
   required?: boolean
   showClear?: boolean
   disabled?: boolean
+
+  lazyLoad?: boolean
+  loadSuccess?: boolean
+  onFirstOpen?: () => void
 }
 
 class Select1 extends React.Component<Select1Props> {
@@ -32,17 +37,18 @@ class Select1 extends React.Component<Select1Props> {
     initCount: 10,
     showClear: false,
     disabled: false,
+    lazyLoad: false,
     options: [],
     onChange: () => null
   }
 
   state = {
     active: false,
-    touched: false,
     showClose: true
   }
 
   keepFlag = false
+  firstFlag = true
 
   toggle = () => {
     if (this.props.disabled) {
@@ -53,16 +59,26 @@ class Select1 extends React.Component<Select1Props> {
       this.keepFlag = false
       return
     }
-    this.setState({active: !this.state.active})
+    if (this.state.active) {
+      this.close()
+    } else {
+      this.open()
+    }
   }
 
   close = () => {
-    this.setState({active: false, touched: true})
+    this.setState({active: false})
   }
 
   open = () => {
     if (this.props.disabled) {
       return
+    }
+    if (this.firstFlag) {
+      this.firstFlag = false
+      if (this.props.lazyLoad) {
+        this.props.onFirstOpen()
+      }
     }
     this.setState({active: true})
   }
@@ -120,7 +136,7 @@ class Select1 extends React.Component<Select1Props> {
         >
           <SelectMain
             active={this.state.active}
-            invalid={this.props.required && this.state.touched && !this.props.value}
+            invalid={this.props.required && !this.props.value}
             text={selectText}
             showClear={this.props.showClear && this.state.showClose && this.props.value != ''}
             onClick={this.toggle}
@@ -128,7 +144,15 @@ class Select1 extends React.Component<Select1Props> {
           />
 
           {
-            this.state.active && (
+            this.state.active && this.props.lazyLoad && !this.props.loadSuccess && (
+              <div className="all-select-items">
+                <Spinner/>
+              </div>
+            )
+          }
+
+          {
+            this.state.active && (this.props.lazyLoad && this.props.loadSuccess || !this.props.lazyLoad) && (
               <Options
                 value={this.props.value}
                 options={this.props.options}
