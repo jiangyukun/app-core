@@ -18,7 +18,7 @@ class S extends React.Component<any> {
   render() {
     return (
       <div className="container">
-        <Select1 options={o} value={this.state.value} onChange={v => this.setState({value: v})}/>
+        <Select1 showClear={true} disabled={true} options={o} value={this.state.value} onChange={v => this.setState({value: v})}/>
       </div>
     )
   }

@@ -3,10 +3,11 @@
  */
 import React from 'react'
 import classnames from 'classnames'
-import {events} from 'dom-helpers'
 
 import './select1.scss'
-import ScrollContainer from '../core/ScrollContainer'
+import OuterClick from '../core/OuterClick'
+import SelectMain from './select/SelectMain'
+import Options from './select/Options'
 
 const keyCode = {
   UP: 38, DOWN: 40, ENTER: 13, ESCAPE: 27
@@ -25,7 +26,7 @@ interface Select1Props {
   disabled?: boolean
 }
 
-class Select1 extends React.Component<Select1Props, any> {
+class Select1 extends React.Component<Select1Props> {
   static defaultProps = {
     value: '',
     initCount: 10,
@@ -37,67 +38,40 @@ class Select1 extends React.Component<Select1Props, any> {
 
   state = {
     active: false,
-    maxLength: 0,
-    searchKey: '',
-    selectIndex: -1,
     touched: false,
-    touchIndex: -1,
     showClose: true
   }
 
-  closeFlag: boolean = false
-  openFlag: boolean = false
+  keepFlag = false
 
-  toggle() {
+  toggle = () => {
     if (this.props.disabled) {
       return
     }
-    if (this.closeFlag) {
-      this.closeFlag = false
+    //点击清除不改变状态
+    if (this.keepFlag) {
+      this.keepFlag = false
       return
     }
     this.setState({active: !this.state.active})
   }
 
-  close() {
-    this.setState({active: false, touched: true, touchIndex: -1})
+  close = () => {
+    this.setState({active: false, touched: true})
   }
 
-  open() {
+  open = () => {
     if (this.props.disabled) {
       return
     }
-    this.setState({active: true, touchIndex: this.state.selectIndex})
+    this.setState({active: true})
   }
 
   // 点击选项
-  select(option, index) {
+  select = (option, index) => {
     this.setState({selectIndex: index})
     this.props.onChange(option.value, option.text)
     this.close()
-  }
-
-  search(event) {
-    let searchKey = event.target.value.trim()
-    this.setState({searchKey})
-  }
-
-  showMoreItems() {
-    this.setState({maxLength: this.state.maxLength + 10})
-  }
-
-  activeOpenFlag = () => {
-    this.openFlag = true
-  }
-
-  handleDocumentClick = () => {
-    if (this.openFlag) {
-      this.openFlag = false
-      return
-    }
-    if (this.state.active) {
-      this.close()
-    }
   }
 
   handleContainerKeyUp = (event) => {
@@ -116,53 +90,15 @@ class Select1 extends React.Component<Select1Props, any> {
         event.stopPropagation()
         this.close()
         break
-      case keyCode.DOWN:
-        const filterOptions = this.props.options.filter(item => item.text.indexOf(this.state.searchKey) != -1)
-        let currentCount = this.state.maxLength <= filterOptions.length ? this.state.maxLength : filterOptions.length
-        if (this.state.touchIndex + 1 <= currentCount) {
-          this.setState({touchIndex: this.state.touchIndex + 1})
-        }
-        break
-      case keyCode.UP:
-        if (this.state.touchIndex - 1 >= 0) {
-          this.setState({touchIndex: this.state.touchIndex - 1})
-        }
-        break
-      case keyCode.ENTER:
-        let touchIndex = this.state.touchIndex
-        let options = this.props.options
-        if (touchIndex >= 0 && touchIndex < options.length) {
-          this.select(options[touchIndex], touchIndex)
-        }
-        break
       default:
         break
     }
   }
 
   handleClearBtnClick = () => {
-    this.closeFlag = true
+    this.keepFlag = true
     this.setState({showClose: false})
     this.props.onChange('', '')
-  }
-
-  componentWillMount() {
-    this.setState({maxLength: this.props.initCount})
-
-    const matchOption = this.props.options.find(option => option.value == this.props.value)
-    let selectIndex = -1
-    if (matchOption) {
-      selectIndex = this.props.options.indexOf(matchOption)
-      this.setState({selectIndex})
-    }
-  }
-
-  componentDidMount() {
-    events.on(document, 'click', this.handleDocumentClick)
-  }
-
-  componentWillUnmount() {
-    events.off(document, 'click', this.handleDocumentClick)
   }
 
   render() {
@@ -173,78 +109,36 @@ class Select1 extends React.Component<Select1Props, any> {
       }
     })
 
-    const filterOptions = this.props.options.filter(item => item.text.indexOf(this.state.searchKey) != -1)
-    let showMore = filterOptions.length > this.state.maxLength, noMatch = filterOptions.length == 0
-
     return (
-      <div
-        className={classnames('__select1-container', {'disabled': this.props.disabled}, this.props.className)}
-        onClick={this.activeOpenFlag}
-        onMouseEnter={e => this.setState({showClose: true})}
-        onMouseLeave={e => this.setState({showClose: false})}
-        onKeyUp={this.handleContainerKeyUp}
-        tabIndex={-1}
-      >
-        <div onClick={() => this.toggle()}
-             className={classnames('selected-item',
-               {'open': this.state.active},
-               {'invalid': this.props.required && this.state.touched && !this.props.value})}
+      <OuterClick onOuterClick={this.close}>
+        <div
+          className={classnames('__select1-container', {'disabled': this.props.disabled}, this.props.className)}
+          onMouseEnter={e => this.setState({showClose: true})}
+          onMouseLeave={e => this.setState({showClose: false})}
+          onKeyUp={this.handleContainerKeyUp}
+          tabIndex={-1}
         >
-          <span className="select-item-text">{selectText}</span>
-          <span className="dropdown"><b></b></span>
+          <SelectMain
+            active={this.state.active}
+            invalid={this.props.required && this.state.touched && !this.props.value}
+            text={selectText}
+            showClear={this.props.showClear && this.state.showClose && this.props.value != ''}
+            onClick={this.toggle}
+            onClear={this.handleClearBtnClick}
+          />
+
           {
-            this.props.showClear && this.state.showClose && this.props.value && (
-              <span className="close-btn" onClick={this.handleClearBtnClick}>
-                <i className="fa fa-close"></i>
-              </span>
+            this.state.active && (
+              <Options
+                value={this.props.value}
+                options={this.props.options}
+                onSelect={this.select}
+                initCount={this.props.initCount}
+              />
             )
           }
         </div>
-
-        {
-          this.state.active && (
-            <ScrollContainer className="all-select-items" onScrollBottom={() => this.showMoreItems()}>
-              {
-                this.props.options.length > 10 && (
-                  <input value={this.state.searchKey} className="search" onChange={e => this.search(e)}
-                         placeholder="搜索"/>
-                )
-              }
-              <ul className="select-items-container">
-                {
-                  filterOptions.map((option, index) => {
-                    if (index < this.state.maxLength) {
-                      return (
-                        <li key={index}
-                            className={classnames('select-item', {'selected': index == this.state.selectIndex}, {'last-touched': index == this.state.touchIndex})}
-                            onClick={e => this.select(option, index)}
-                            onMouseEnter={() => this.setState({touchIndex: index})}>
-                          {option.text}
-                        </li>
-                      )
-                    }
-                    return null
-                  })
-                }
-                {
-                  showMore && (
-                    <li className="show-more" onClick={e => this.showMoreItems()}>
-                      <span>更多...</span>
-                    </li>
-                  )
-                }
-              </ul>
-              {
-                noMatch && (
-                  <div className="no-match-result">
-                    <span>暂无数据</span>
-                  </div>
-                )
-              }
-            </ScrollContainer>
-          )
-        }
-      </div>
+      </OuterClick>
     )
   }
 }

@@ -73,7 +73,7 @@
     .close-btn {
         position: absolute;
         right: 20px;
-        top: 6px;
+        top: 8px;
         color: red;
     }
 
@@ -90,7 +90,7 @@
         border-bottom-right-radius: 2px;
         padding: 5px 0;
 
-        .select-items-container {
+        .select-items {
             max-height: 300px;
             overflow-y: auto;
         }
