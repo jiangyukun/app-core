@@ -9,7 +9,7 @@
     "target": "es6"
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*", "./demo/**/*"
   ],
   "exclude": [
     "node_modules"

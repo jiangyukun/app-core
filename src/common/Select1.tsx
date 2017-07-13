@@ -2,20 +2,20 @@
  * 下拉框控件
  */
 import React from 'react'
-import {findDOMNode} from 'react-dom'
 import classnames from 'classnames'
 import {events} from 'dom-helpers'
 
 import './select1.scss'
+import ScrollContainer from '../core/ScrollContainer'
 
 const keyCode = {
   UP: 38, DOWN: 40, ENTER: 13, ESCAPE: 27
 }
 
 interface Select1Props {
-  value: string
-  options: { value: string, text: string }[]
-  onChange: (value: string, text: string) => void
+  value?: string
+  options?: { value: string, text: string }[]
+  onChange?: (value: string, text: string) => void
 
   placeholder?: string
   className?: string
@@ -32,31 +32,21 @@ class Select1 extends React.Component<Select1Props, any> {
     showClear: false,
     disabled: false,
     options: [],
+    onChange: () => null
   }
 
-  _container: any
-
-  constructor(props) {
-    super(props)
-    const matchOption = props.options.find(option => option.value == props.value)
-    let selectIndex = -1
-    if (matchOption) {
-      selectIndex = props.options.indexOf(matchOption)
-    }
-    this.state = {
-      active: false,
-      maxLength: props.initCount,
-      searchKey: '',
-      selectIndex,
-      touched: false,
-      touchIndex: -1,
-      showClose: true
-    }
+  state = {
+    active: false,
+    maxLength: 0,
+    searchKey: '',
+    selectIndex: -1,
+    touched: false,
+    touchIndex: -1,
+    showClose: true
   }
 
   closeFlag: boolean = false
   openFlag: boolean = false
-  currentCount: number = 0
 
   toggle() {
     if (this.props.disabled) {
@@ -110,7 +100,7 @@ class Select1 extends React.Component<Select1Props, any> {
     }
   }
 
-  handleContainerKeyDown = (event) => {
+  handleContainerKeyUp = (event) => {
     if (!this.state.active) {
       switch (event.which) {
         case keyCode.ENTER:
@@ -127,7 +117,9 @@ class Select1 extends React.Component<Select1Props, any> {
         this.close()
         break
       case keyCode.DOWN:
-        if (this.state.touchIndex + 1 <= this.currentCount - 1) {
+        const filterOptions = this.props.options.filter(item => item.text.indexOf(this.state.searchKey) != -1)
+        let currentCount = this.state.maxLength <= filterOptions.length ? this.state.maxLength : filterOptions.length
+        if (this.state.touchIndex + 1 <= currentCount) {
           this.setState({touchIndex: this.state.touchIndex + 1})
         }
         break
@@ -154,20 +146,22 @@ class Select1 extends React.Component<Select1Props, any> {
     this.props.onChange('', '')
   }
 
-  handleOptionScroll = (e) => {
-    const target = e.target
-    if (target.clientHeight + target.scrollTop == target.scrollHeight) {
-      this.showMoreItems()
+  componentWillMount() {
+    this.setState({maxLength: this.props.initCount})
+
+    const matchOption = this.props.options.find(option => option.value == this.props.value)
+    let selectIndex = -1
+    if (matchOption) {
+      selectIndex = this.props.options.indexOf(matchOption)
+      this.setState({selectIndex})
     }
   }
 
   componentDidMount() {
-    events.on(findDOMNode(this._container), 'keyup', this.handleContainerKeyDown)
     events.on(document, 'click', this.handleDocumentClick)
   }
 
   componentWillUnmount() {
-    events.off(findDOMNode(this._container), 'keyup', this.handleContainerKeyDown)
     events.off(document, 'click', this.handleDocumentClick)
   }
 
@@ -178,45 +172,20 @@ class Select1 extends React.Component<Select1Props, any> {
         selectText = option.text
       }
     })
-    let showMore = false, noMatch = true
 
-    let showSelectItems = () => {
-      let currentCount = 0, filterTotalCount = 0
-      try {
-        return this.props.options.map((option, index) => {
-          if (option.text.indexOf(this.state.searchKey) != -1) {
-            noMatch = false
-            filterTotalCount++
-            if (currentCount < this.state.maxLength) {
-              currentCount++
-              return (
-                <li key={index}
-                    className={classnames('select-item', {'selected': index == this.state.selectIndex}, {'last-touched': index == this.state.touchIndex})}
-                    onClick={e => this.select(option, index)}
-                    onMouseEnter={() => this.setState({touchIndex: index})}>
-                  {option.text}
-                </li>
-              )
-            }
-            return null
-          }
-        })
-      } finally {
-        this.currentCount = currentCount
-        if (currentCount != filterTotalCount) {
-          showMore = true
-        }
-      }
-    }
+    const filterOptions = this.props.options.filter(item => item.text.indexOf(this.state.searchKey) != -1)
+    let showMore = filterOptions.length > this.state.maxLength, noMatch = filterOptions.length == 0
 
     return (
-      <div ref={c => this._container = c}
-           className={classnames('__select1-container', {'disabled': this.props.disabled}, this.props.className)}
-           onClick={this.activeOpenFlag}
-           onMouseEnter={e => this.setState({showClose: true})}
-           onMouseLeave={e => this.setState({showClose: false})}
-           tabIndex={-1}>
-        <div onClick={e => this.toggle()}
+      <div
+        className={classnames('__select1-container', {'disabled': this.props.disabled}, this.props.className)}
+        onClick={this.activeOpenFlag}
+        onMouseEnter={e => this.setState({showClose: true})}
+        onMouseLeave={e => this.setState({showClose: false})}
+        onKeyUp={this.handleContainerKeyUp}
+        tabIndex={-1}
+      >
+        <div onClick={() => this.toggle()}
              className={classnames('selected-item',
                {'open': this.state.active},
                {'invalid': this.props.required && this.state.touched && !this.props.value})}
@@ -234,7 +203,7 @@ class Select1 extends React.Component<Select1Props, any> {
 
         {
           this.state.active && (
-            <div className="all-select-items" onScroll={this.handleOptionScroll}>
+            <ScrollContainer className="all-select-items" onScrollBottom={() => this.showMoreItems()}>
               {
                 this.props.options.length > 10 && (
                   <input value={this.state.searchKey} className="search" onChange={e => this.search(e)}
@@ -242,7 +211,21 @@ class Select1 extends React.Component<Select1Props, any> {
                 )
               }
               <ul className="select-items-container">
-                {showSelectItems()}
+                {
+                  filterOptions.map((option, index) => {
+                    if (index < this.state.maxLength) {
+                      return (
+                        <li key={index}
+                            className={classnames('select-item', {'selected': index == this.state.selectIndex}, {'last-touched': index == this.state.touchIndex})}
+                            onClick={e => this.select(option, index)}
+                            onMouseEnter={() => this.setState({touchIndex: index})}>
+                          {option.text}
+                        </li>
+                      )
+                    }
+                    return null
+                  })
+                }
                 {
                   showMore && (
                     <li className="show-more" onClick={e => this.showMoreItems()}>
@@ -258,7 +241,7 @@ class Select1 extends React.Component<Select1Props, any> {
                   </div>
                 )
               }
-            </div>
+            </ScrollContainer>
           )
         }
       </div>
