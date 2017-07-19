@@ -8,7 +8,7 @@ import SmallDialogContent from './content/SmallDialogContent'
 import ConfirmOrClose from './ConfirmOrClose'
 
 interface ConfirmProps {
-  message: string
+  message?: string
   onConfirm: () => void
   onExited?: () => void
 }

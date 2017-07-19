@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import classnames from 'classnames'
+import AdaptationTextArea from './AdaptationTextArea'
 
 interface TouchTextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {
   value: string
@@ -20,8 +21,8 @@ class TouchTextArea extends React.Component<TouchTextAreaProps> {
     const {className, valid, ...props} = this.props
     return (
       <div>
-        <textarea
-          {...props}
+        <AdaptationTextArea
+          {...props as any}
           className={classnames('__input', className, {invalid: !valid && this.state.touched})}
           onBlur={() => this.setState({touched: true})}
         />

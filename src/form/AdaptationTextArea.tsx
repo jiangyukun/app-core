@@ -1,4 +1,5 @@
 /**
+ * 自动根据高度调整rows属性的textarea
  * Created by jiangyukun on 2017/7/19.
  */
 import React from 'react'
@@ -11,6 +12,7 @@ class AdaptationTextArea extends React.Component<AdaptationTextAreaProps> {
   static defaultProps = {
     rows: 5
   }
+
   _textArea: HTMLTextAreaElement
 
   state = {
@@ -19,6 +21,12 @@ class AdaptationTextArea extends React.Component<AdaptationTextAreaProps> {
 
   componentWillMount() {
     this.setState({rows: this.props.rows})
+  }
+
+  componentWillReceiveProps(nextProps: AdaptationTextAreaProps) {
+    if (nextProps.value == '') {
+      this.setState({rows: nextProps.rows})
+    }
   }
 
   componentDidUpdate() {
@@ -30,7 +38,7 @@ class AdaptationTextArea extends React.Component<AdaptationTextAreaProps> {
   render() {
     const {...props} = this.props
     return (
-      <textarea {...props}></textarea>
+      <textarea ref={c => this._textArea = c} {...props} rows={this.state.rows}></textarea>
     )
   }
 }

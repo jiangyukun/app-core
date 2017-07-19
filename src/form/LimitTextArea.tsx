@@ -15,18 +15,14 @@ interface LimitTextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {
 }
 
 class LimitTextArea extends React.Component<LimitTextAreaProps> {
-  static defaultProps = {
-    rows: 5
-  }
   _textArea: HTMLTextAreaElement
 
   state = {
-    isExceed: false,
-    rows: 0
+    isExceed: false
   }
 
   componentWillMount() {
-    this.setState({isExceed: this.props.value.length > this.props.limit, rows: this.props.rows})
+    this.setState({isExceed: this.props.value.length > this.props.limit})
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,19 +37,13 @@ class LimitTextArea extends React.Component<LimitTextAreaProps> {
     }
   }
 
-  componentDidUpdate() {
-    if (this._textArea.scrollHeight > this._textArea.clientHeight) {
-      this.setState({rows: this.state.rows + 2})
-    }
-  }
-
   render() {
     let {className, limit, onExceed, ...otherProps} = this.props
     return (
       <div>
-        <textarea ref={c => this._textArea = c} {...otherProps}
-                  rows={this.state.rows}
-                  className={classnames('__input', className, {invalid: this.state.isExceed})}
+        <AdaptationTextArea
+          {...otherProps as any}
+          className={classnames('__input', className, {invalid: this.state.isExceed})}
         />
         <div className="__input-text-count">{this.props.value.length}/{limit}</div>
       </div>
