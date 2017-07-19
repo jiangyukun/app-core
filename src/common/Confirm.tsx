@@ -11,7 +11,6 @@ interface ConfirmProps {
   message: string
   onConfirm: () => void
   onExited?: () => void
-  onCancel?: () => void
 }
 
 class Confirm extends React.Component<ConfirmProps, any> {
@@ -37,9 +36,6 @@ class Confirm extends React.Component<ConfirmProps, any> {
   handleExited = () => {
     if (this.props.onExited) {
       this.props.onExited()
-    }
-    if (this.props.onCancel) {
-      this.props.onCancel()
     }
     if (this.closeType == 'confirm') {
       this.props.onConfirm()

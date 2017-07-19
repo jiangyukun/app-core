@@ -4,25 +4,29 @@
 import React from 'react'
 import classnames from 'classnames'
 
+import AdaptationTextArea from './AdaptationTextArea'
+
 interface LimitTextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {
   value: string
   onChange: (e: any) => void
   limit: number
   onExceed: () => void
-
   className?: string
 }
 
 class LimitTextArea extends React.Component<LimitTextAreaProps> {
-  state: {
-    isExceed: boolean
+  static defaultProps = {
+    rows: 5
+  }
+  _textArea: HTMLTextAreaElement
+
+  state = {
+    isExceed: false,
+    rows: 0
   }
 
-  constructor(props) {
-    super()
-    this.state = {
-      isExceed: props.value.length > props.limit
-    }
+  componentWillMount() {
+    this.setState({isExceed: this.props.value.length > this.props.limit, rows: this.props.rows})
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,11 +41,20 @@ class LimitTextArea extends React.Component<LimitTextAreaProps> {
     }
   }
 
+  componentDidUpdate() {
+    if (this._textArea.scrollHeight > this._textArea.clientHeight) {
+      this.setState({rows: this.state.rows + 2})
+    }
+  }
+
   render() {
     let {className, limit, onExceed, ...otherProps} = this.props
     return (
       <div>
-        <textarea {...otherProps} className={classnames('__input', className, {invalid: this.state.isExceed})}/>
+        <textarea ref={c => this._textArea = c} {...otherProps}
+                  rows={this.state.rows}
+                  className={classnames('__input', className, {invalid: this.state.isExceed})}
+        />
         <div className="__input-text-count">{this.props.value.length}/{limit}</div>
       </div>
     )

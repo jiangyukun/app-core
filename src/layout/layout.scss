@@ -1,5 +1,5 @@
 .__line {
-    margin: 15px 0;
+    margin: 1em 0;
     height: 1px;
     background: #e8e8e8;
 }
@@ -13,7 +13,4 @@
         flex-wrap: wrap;
     }
 
-    & + .__flex {
-        margin-top: 15px;
-    }
 }
