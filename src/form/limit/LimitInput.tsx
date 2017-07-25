@@ -4,7 +4,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-interface LimitInputProps extends React.HTMLProps<HTMLInputElement> {
+export interface LimitInputProps extends React.HTMLProps<HTMLInputElement> {
   value: string
   onChange: (e: any) => void
   limit: number

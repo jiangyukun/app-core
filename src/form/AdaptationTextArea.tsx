@@ -23,6 +23,12 @@ class AdaptationTextArea extends React.Component<AdaptationTextAreaProps> {
     this.setState({rows: this.props.rows})
   }
 
+  componentDidMount() {
+    if (this._textArea.scrollHeight > this._textArea.clientHeight) {
+      this.setState({rows: this.state.rows + 2})
+    }
+  }
+
   componentWillReceiveProps(nextProps: AdaptationTextAreaProps) {
     if (nextProps.value == '') {
       this.setState({rows: nextProps.rows})

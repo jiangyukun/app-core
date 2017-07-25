@@ -4,7 +4,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-import AdaptationTextArea from './AdaptationTextArea'
+import AdaptationTextArea from '../AdaptationTextArea'
 
 interface LimitTextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {
   value: string

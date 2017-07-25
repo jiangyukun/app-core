@@ -28,6 +28,7 @@ interface Select1Props {
 
   lazyLoad?: boolean
   loadSuccess?: boolean
+  onOpen?: () => void
   onFirstOpen?: () => void
 }
 
@@ -39,7 +40,8 @@ class Select1 extends React.Component<Select1Props> {
     disabled: false,
     lazyLoad: false,
     options: [],
-    onChange: () => null
+    onChange: () => null,
+    onOpen: () => null
   }
 
   state = {
@@ -80,6 +82,7 @@ class Select1 extends React.Component<Select1Props> {
         this.props.onFirstOpen()
       }
     }
+    this.props.onOpen()
     this.setState({active: true})
   }
 
