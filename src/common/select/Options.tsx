@@ -9,24 +9,19 @@ interface OptionsProps {
   value: string
   options: any[]
   onSelect: (option, index) => void
-  initCount: number
+  maxCount: number
+  showMoreOptions: () => void
 }
 
 class Options extends React.Component<OptionsProps> {
   state = {
     searchKey: '',
     selectIndex: -1,
-    touchIndex: -1,
-    maxCount: 0
+    touchIndex: -1
   }
 
-  showMoreItems = () => {
-    this.setState({maxCount: this.state.maxCount + 10})
-  }
 
   componentWillMount() {
-    this.setState({maxCount: this.props.initCount})
-
     const matchOption = this.props.options.find(option => option.value == this.props.value)
     let selectIndex = -1
     if (matchOption) {
@@ -37,9 +32,9 @@ class Options extends React.Component<OptionsProps> {
 
   render() {
     const filterOptions = this.props.options.filter(item => item.text.indexOf(this.state.searchKey) != -1)
-    let showMore = filterOptions.length > this.state.maxCount, noMatch = filterOptions.length == 0
+    let showMore = filterOptions.length > this.props.maxCount, noMatch = filterOptions.length == 0
     return (
-      <ScrollContainer className="all-select-items" onScrollBottom={this.showMoreItems}>
+      <ScrollContainer className="all-select-items" onScrollBottom={this.props.showMoreOptions}>
         {
           this.props.options.length > 10 && (
             <input value={this.state.searchKey} className="search" onChange={e => this.setState({searchKey: e.target.value})}
@@ -49,7 +44,7 @@ class Options extends React.Component<OptionsProps> {
         <ul className="select-items">
           {
             filterOptions.map((option, index) => {
-              if (index < this.state.maxCount) {
+              if (index < this.props.maxCount) {
                 return (
                   <li key={index}
                       className={classnames('select-item', {'selected': index == this.state.selectIndex}, {'last-touched': index == this.state.touchIndex})}
@@ -64,7 +59,7 @@ class Options extends React.Component<OptionsProps> {
           }
           {
             showMore && (
-              <li className="show-more" onClick={e => this.showMoreItems()}>
+              <li className="show-more" onClick={this.props.showMoreOptions}>
                 <span>更多...</span>
               </li>
             )

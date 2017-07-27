@@ -34,11 +34,11 @@ class Confirm extends React.Component<ConfirmProps, any> {
   }
 
   handleExited = () => {
-    if (this.props.onExited) {
-      this.props.onExited()
-    }
     if (this.closeType == 'confirm') {
       this.props.onConfirm()
+    }
+    if (this.props.onExited) {
+      this.props.onExited()
     }
   }
 

@@ -46,7 +46,8 @@ class Select1 extends React.Component<Select1Props> {
 
   state = {
     active: false,
-    showClose: true
+    showClose: true,
+    maxCount: 0
   }
 
   keepFlag = false
@@ -120,6 +121,14 @@ class Select1 extends React.Component<Select1Props> {
     this.props.onChange('', '')
   }
 
+  showMoreOptions = () => {
+    this.setState({maxCount: this.state.maxCount + 10})
+  }
+
+  componentWillMount() {
+    this.setState({maxCount: this.props.initCount})
+  }
+
   render() {
     let selectText = this.props.placeholder || '请选择'
     this.props.options.forEach(option => {
@@ -160,7 +169,8 @@ class Select1 extends React.Component<Select1Props> {
                 value={this.props.value}
                 options={this.props.options}
                 onSelect={this.select}
-                initCount={this.props.initCount}
+                maxCount={this.state.maxCount}
+                showMoreOptions={this.showMoreOptions}
               />
             )
           }

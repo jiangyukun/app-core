@@ -10,7 +10,7 @@ interface AdaptationTextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {
 
 class AdaptationTextArea extends React.Component<AdaptationTextAreaProps> {
   static defaultProps = {
-    rows: 5
+    rows: 3
   }
 
   _textArea: HTMLTextAreaElement
