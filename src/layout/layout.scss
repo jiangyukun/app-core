@@ -1,0 +1,16 @@
+.__line {
+    margin: 1em 0;
+    height: 1px;
+    background: #e8e8e8;
+}
+
+.__flex {
+    display: flex;
+    &.middle {
+        align-items: center;
+    }
+    &.wrap {
+        flex-wrap: wrap;
+    }
+
+}

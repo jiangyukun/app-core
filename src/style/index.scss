@@ -1,9 +1,11 @@
+/*
+ *
+ */
+
+@import '../common/spinner.scss';
+@import '../common/select1.scss';
 @import '../modal/modal.scss';
 @import '../message/message.scss';
 @import '../form/form.scss';
-
-.line {
-    margin: 15px 0;
-    height: 1px;
-    background: #e8e8e8;
-}
+@import '../button/button.scss';
+@import '../layout/layout.scss';
