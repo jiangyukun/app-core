@@ -2,6 +2,7 @@
  * 下拉框控件
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 import './select1.scss'
@@ -9,6 +10,8 @@ import OuterClick from '../core/OuterClick'
 import SelectMain from './select/SelectMain'
 import Options from './select/Options'
 import Spinner from './Spinner'
+
+import addFormSupport from '../core/hoc/addFormSupport'
 
 const keyCode = {
   UP: 38, DOWN: 40, ENTER: 13, ESCAPE: 27
@@ -23,6 +26,7 @@ interface Select1Props {
   className?: string
   initCount?: number
   required?: boolean
+  name?: string
   showClear?: boolean
   disabled?: boolean
 
@@ -43,6 +47,9 @@ class Select1 extends React.Component<Select1Props> {
     onChange: () => null,
     onOpen: () => null
   }
+  static contextTypes = {
+    setValid: PropTypes.func
+  }
 
   state = {
     active: false,
@@ -52,6 +59,7 @@ class Select1 extends React.Component<Select1Props> {
 
   keepFlag = false
   firstFlag = true
+  valid = true
 
   toggle = () => {
     if (this.props.disabled) {
@@ -180,4 +188,4 @@ class Select1 extends React.Component<Select1Props> {
   }
 }
 
-export default Select1
+export default addFormSupport<Select1Props>(Select1, ({props}) => props.value != '')
