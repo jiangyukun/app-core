@@ -24,6 +24,7 @@ interface Select1Props {
 
   placeholder?: string
   className?: string
+  width?: string
   initCount?: number
   required?: boolean
   name?: string
@@ -149,6 +150,7 @@ class Select1 extends React.Component<Select1Props> {
       <OuterClick onOuterClick={this.close}>
         <div
           className={classnames('__select1-container', {'disabled': this.props.disabled}, this.props.className)}
+          style={{width: this.props.width}}
           onMouseEnter={e => this.setState({showClose: true})}
           onMouseLeave={e => this.setState({showClose: false})}
           onKeyUp={this.handleContainerKeyUp}
