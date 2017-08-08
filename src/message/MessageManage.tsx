@@ -3,7 +3,6 @@
  */
 import React from 'react'
 
-import './message.scss'
 import Messages from "./Messages"
 import {MESSAGE_STATUS} from './message.constants'
 import Portal from '../modal/Portal'

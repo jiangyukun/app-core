@@ -3,7 +3,6 @@
  */
 import React from 'react'
 import classnames from 'classnames'
-import './button.scss'
 
 interface ButtonProps extends HTMLButtonElement {
   type: string

@@ -7,7 +7,6 @@ import {events} from 'dom-helpers'
 import classnames from 'classnames'
 import {addClass, removeClass} from 'dom-helpers/class'
 
-import './modal.scss'
 import Portal from './Portal'
 import Transition from './Transition'
 import Header from './Header'

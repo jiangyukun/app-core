@@ -4,7 +4,7 @@ const webpack = require('webpack')
 module.exports = {
   entry: [
     'webpack-hot-middleware/client',
-    './demo/select1/select1.tsx'
+    './demo/category-select/categorySelect.tsx'
   ],
   devServer: {
     hot: true,

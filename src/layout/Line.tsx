@@ -3,8 +3,6 @@
  */
 import React from 'react'
 
-import './layout.scss'
-
 class Line extends React.Component {
 
   render() {

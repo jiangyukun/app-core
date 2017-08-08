@@ -8,7 +8,7 @@ import ScrollContainer from '../../core/ScrollContainer'
 interface OptionsProps {
   value: string
   options: any[]
-  onSelect: (option, index) => void
+  onSelect: (option) => void
   maxCount: number
   showMoreOptions: () => void
 }
@@ -19,7 +19,6 @@ class Options extends React.Component<OptionsProps> {
     selectIndex: -1,
     touchIndex: -1
   }
-
 
   componentWillMount() {
     const matchOption = this.props.options.find(option => option.value == this.props.value)
@@ -36,7 +35,7 @@ class Options extends React.Component<OptionsProps> {
     return (
       <ScrollContainer className="all-select-items" onScrollBottom={this.props.showMoreOptions}>
         {
-          this.props.options.length > 10 && (
+          this.props.options.length > 20 && (
             <input value={this.state.searchKey} className="search" onChange={e => this.setState({searchKey: e.target.value})}
                    placeholder="搜索"/>
           )
@@ -48,7 +47,7 @@ class Options extends React.Component<OptionsProps> {
                 return (
                   <li key={index}
                       className={classnames('select-item', {'selected': index == this.state.selectIndex}, {'last-touched': index == this.state.touchIndex})}
-                      onClick={e => this.props.onSelect(option, index)}
+                      onClick={() => this.props.onSelect(option)}
                       onMouseEnter={() => this.setState({touchIndex: index})}>
                     {option.text}
                   </li>

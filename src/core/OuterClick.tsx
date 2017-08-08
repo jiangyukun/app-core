@@ -34,9 +34,9 @@ class OuterClick extends React.Component<OuterClickProps> {
 
   render() {
     return (
-      <div style={{display: 'inline-block'}} onClick={this.handleClick}>
+      <span onClick={this.handleClick}>
         {this.props.children}
-      </div>
+      </span>
     )
   }
 }

@@ -8,7 +8,7 @@ interface SelectMainProps {
   active: boolean
   showClear: boolean
   text: string
-  invalid: boolean
+  valid: boolean
   onClear: () => void
   onClick: any
 }
@@ -30,7 +30,7 @@ class SelectMain extends React.Component<SelectMainProps> {
     return (
       <div
         onClick={this.props.onClick}
-        className={classnames('selected-item', {'open': this.props.active}, {'invalid': this.props.invalid && this.state.touched})}
+        className={classnames('selected-item', {'open': this.props.active}, {'invalid': !this.props.valid && this.state.touched})}
       >
         <span className="select-item-text">{this.props.text}</span>
         <span className="dropdown"><b></b></span>
