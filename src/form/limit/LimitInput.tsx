@@ -26,7 +26,7 @@ class LimitInput extends React.Component<LimitInputProps> {
 
   componentWillReceiveProps(nextProps) {
     this.setState({isExceed: nextProps.value.length > nextProps.limit})
-    if (this.props.value.length > this.props.limit) {
+    if (nextProps.value.length > nextProps.limit) {
       if (!this.state.isExceed) {
         this.setState({isExceed: true})
         this.props.onExceed()

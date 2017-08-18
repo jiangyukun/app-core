@@ -6,7 +6,7 @@ import classnames from 'classnames'
 
 import AdaptationTextArea from '../AdaptationTextArea'
 
-interface LimitTextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {
+export interface LimitTextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {
   value: string
   onChange: (e: any) => void
   limit: number
@@ -27,7 +27,7 @@ class LimitTextArea extends React.Component<LimitTextAreaProps> {
 
   componentWillReceiveProps(nextProps) {
     this.setState({isExceed: nextProps.value.length > nextProps.limit})
-    if (this.props.value.length > this.props.limit) {
+    if (nextProps.value.length > nextProps.limit) {
       if (!this.state.isExceed) {
         this.setState({isExceed: true})
         this.props.onExceed()

@@ -46,7 +46,7 @@ class Options extends React.Component<OptionsProps> {
               if (index < this.props.maxCount) {
                 return (
                   <li key={index}
-                      className={classnames('select-item', {'selected': index == this.state.selectIndex}, {'last-touched': index == this.state.touchIndex})}
+                      className={classnames('select-item', {'selected': index == this.state.selectIndex})}
                       onClick={() => this.props.onSelect(option)}
                       onMouseEnter={() => this.setState({touchIndex: index})}>
                     {option.text}

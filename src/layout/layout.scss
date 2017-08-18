@@ -9,8 +9,14 @@
     &.middle {
         align-items: center;
     }
+
     &.wrap {
         flex-wrap: wrap;
     }
-
+    &.h-middle {
+        justify-content: center;
+    }
+    &.v-middle {
+        align-items: center;
+    }
 }

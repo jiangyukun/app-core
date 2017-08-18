@@ -50,7 +50,7 @@
         right: 0;
         top: 0;
         width: 20px;
-        height: 26px;
+        height: 22px;
     }
 
     .dropdown b {
@@ -73,7 +73,7 @@
     .close-btn {
         position: absolute;
         right: 20px;
-        top: 8px;
+        top: 6px;
         color: red;
     }
 
@@ -96,11 +96,9 @@
             cursor: pointer;
             padding: 7px 0 7px 15px;
             word-break: break-all;
-            &.selected {
-                background: #ccc;
-            }
-            &.last-touched {
-                background: #66afe9;
+            &.selected, &:hover {
+                background: #f8f6f2;
+                color: #da4f4a;
             }
         }
         .search {

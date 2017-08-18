@@ -71,7 +71,7 @@ class Select1 extends React.Component<Select1Props> {
           onOpen={this.props.onOpen}
           onFirstOpen={this.props.onFirstOpen}
           valid={this.props.value != ''}
-          showClear={this.props.showClear}
+          showClear={this.props.showClear && this.props.value != ''}
           onClear={() => this.props.onChange('', '')}
         >
           {
