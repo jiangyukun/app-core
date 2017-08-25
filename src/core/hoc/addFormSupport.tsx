@@ -14,25 +14,21 @@ function addFormSupport<T>(WrapperComponent, checkValid: (instance) => boolean) 
     valid: boolean
 
     componentDidMount() {
-      if (this.props.required) {
+      if (this.props.required && this.context.setValid) {
         if (!this.props.name) {
           throw new Error('name is required !!!')
         }
         this.valid = checkValid(this._instance)
-        if (this.context.setValid) {
-          this.context.setValid(this.props.name, this.valid)
-        }
+        this.context.setValid(this.props.name, this.valid)
       }
     }
 
     componentDidUpdate() {
-      if (this.props.required) {
-        if (this.context.setValid) {
-          let valid = checkValid(this._instance)
-          if (this.valid != valid) {
-            this.valid = valid
-            this.context.setValid(this.props.name, valid)
-          }
+      if (this.props.required && this.context.setValid) {
+        let valid = checkValid(this._instance)
+        if (this.valid != valid) {
+          this.valid = valid
+          this.context.setValid(this.props.name, valid)
         }
       }
     }
