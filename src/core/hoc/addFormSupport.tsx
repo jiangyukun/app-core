@@ -4,14 +4,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+export interface FormCommon {
+  required?: boolean
+  name?: string
+}
+
+export function checkValid(format, value): boolean {
+  let valid = true
+  if (format instanceof RegExp) {
+    valid = format.test(value)
+  } else if (format instanceof Function) {
+    valid = format(value)
+  }
+  return valid
+}
+
 function addFormSupport<T>(WrapperComponent, checkValid: (instance) => boolean) {
+
+  interface P extends FormCommon {
+
+  }
 
   class Valid extends React.Component<any> {
     static contextTypes = {
       setValid: PropTypes.func
     }
     _instance: React.Component<any>
-    valid: boolean
+    valid = true
 
     componentDidMount() {
       if (this.props.required && this.context.setValid) {
@@ -35,7 +54,7 @@ function addFormSupport<T>(WrapperComponent, checkValid: (instance) => boolean) 
 
     render() {
       return (
-        <WrapperComponent ref={c => this._instance = c} {...this.props}/>
+        <WrapperComponent ref={c => this._instance = c} {...this.props} valid={this.valid}/>
       )
     }
   }

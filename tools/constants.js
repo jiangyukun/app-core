@@ -10,4 +10,4 @@ const service = 'D:/2017/projects/zhilan-service-console/node_modules/app-core/'
 export const repoRoot = path.resolve(__dirname, '../')
 
 export const srcRoot = path.join(repoRoot, 'src/')
-export const libRoot = smallShellProject
+export const libRoot = simoCrmProject

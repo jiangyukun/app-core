@@ -41,7 +41,9 @@ class Select1 extends React.Component<Select1Props> {
 
   // 点击选项
   select = (option) => {
-    this.props.onChange(option.value, option.text)
+    if (this.props.value != option.value) {
+      this.props.onChange(option.value, option.text)
+    }
     this.close()
   }
 
@@ -60,6 +62,7 @@ class Select1 extends React.Component<Select1Props> {
 
     return (
       <OuterClick onOuterClick={this.close}>
+        <span>
         <Select
           active={this.state.active}
           onActiveChange={active => this.setState({active})}
@@ -94,6 +97,7 @@ class Select1 extends React.Component<Select1Props> {
             )
           }
         </Select>
+        </span>
       </OuterClick>
     )
   }

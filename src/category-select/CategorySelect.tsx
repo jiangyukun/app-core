@@ -37,7 +37,9 @@ class CategorySelect extends React.Component<CategorySelectProps> {
 
   // 点击选项
   select = (value) => {
-    this.props.onChange(value)
+    if (this.props.value != value) {
+      this.props.onChange(value)
+    }
     this.close()
   }
 
@@ -52,20 +54,21 @@ class CategorySelect extends React.Component<CategorySelectProps> {
 
     return (
       <OuterClick onOuterClick={this.close}>
-        <Select
-          active={this.state.active}
-          onActiveChange={active => this.setState({active})}
-          text={text}
-          placeholder={this.props.placeholder}
-          className={this.props.className}
-          disabled={this.props.disabled}
-          width={this.props.width}
-          onOpen={this.props.onOpen}
-          onFirstOpen={this.props.onFirstOpen}
-          valid={this.props.value != ''}
-          showClear={this.props.showClear}
-          onClear={() => this.props.onChange('')}
-        >
+        <span>
+          <Select
+            active={this.state.active}
+            onActiveChange={active => this.setState({active})}
+            text={text}
+            placeholder={this.props.placeholder}
+            className={this.props.className}
+            disabled={this.props.disabled}
+            width={this.props.width}
+            onOpen={this.props.onOpen}
+            onFirstOpen={this.props.onFirstOpen}
+            valid={this.props.value != ''}
+            showClear={this.props.showClear}
+            onClear={() => this.props.onChange('')}
+          >
 
           {
             this.state.active && (
@@ -77,6 +80,7 @@ class CategorySelect extends React.Component<CategorySelectProps> {
             )
           }
         </Select>
+        </span>
       </OuterClick>
     )
   }

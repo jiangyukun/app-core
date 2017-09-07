@@ -33,11 +33,8 @@ class OuterClick extends React.Component<OuterClickProps> {
   }
 
   render() {
-    return (
-      <span onClick={this.handleClick}>
-        {this.props.children}
-      </span>
-    )
+    let child = React.Children.only(this.props.children)
+    return React.cloneElement(child, {onClick: this.handleClick})
   }
 }
 
