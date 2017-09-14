@@ -27,8 +27,10 @@ function addFormSupport<T>(WrapperComponent, checkValid: (instance) => boolean) 
 
   class Valid extends React.Component<any> {
     static contextTypes = {
-      setValid: PropTypes.func
+      setValid: PropTypes.func,
+      disabled: PropTypes.bool
     }
+
     _instance: React.Component<any>
     valid = true
 
@@ -53,6 +55,11 @@ function addFormSupport<T>(WrapperComponent, checkValid: (instance) => boolean) 
     }
 
     render() {
+      if (this.context.disabled) {
+        return (
+          <WrapperComponent ref={c => this._instance = c} {...this.props} valid={this.valid} disabled={this.context.disabled}/>
+        )
+      }
       return (
         <WrapperComponent ref={c => this._instance = c} {...this.props} valid={this.valid}/>
       )

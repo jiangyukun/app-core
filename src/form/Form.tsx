@@ -4,13 +4,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-interface FormProps {
+interface FormProps extends React.HTMLProps<HTMLDivElement> {
   onValidChange: (valid: boolean) => void
 }
 
 class Form extends React.Component<FormProps> {
   static childContextTypes = {
-    setValid: PropTypes.func
+    setValid: PropTypes.func,
+    disabled: PropTypes.bool
   }
 
   map = {}
@@ -25,16 +26,16 @@ class Form extends React.Component<FormProps> {
   }
 
   render() {
+    const {onValidChange, ...otherProps} = this.props
     return (
-      <div>
-        {this.props.children}
-      </div>
+      <div {...otherProps}/>
     )
   }
 
   getChildContext() {
     return {
-      setValid: this.setValid
+      setValid: this.setValid,
+      disabled: this.props.disabled
     }
   }
 }

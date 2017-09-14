@@ -120,7 +120,7 @@ class Select extends React.Component<SelectProps> {
           active={this.props.active}
           valid={!this.props.required || this.props.valid}
           text={text}
-          showClear={this.props.showClear && this.state.showClose}
+          showClear={!this.props.disabled && this.props.showClear && this.state.showClose}
           onClick={this.toggle}
           onClear={this.handleClearBtnClick}
         />

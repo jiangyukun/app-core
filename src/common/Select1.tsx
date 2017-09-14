@@ -14,6 +14,7 @@ interface Select1Props extends SelectProps {
   value?: string
   options?: { value: string, text: string }[]
   onChange?: (value: string, text: string) => void
+  notMatchText?: string
 
   initCount?: number
 
@@ -25,6 +26,7 @@ class Select1 extends React.Component<Select1Props> {
   static defaultProps = {
     options: [],
     value: '',
+    notMatchText: null,
     onChange: () => null,
     initCount: 10,
     lazyLoad: false
@@ -58,7 +60,11 @@ class Select1 extends React.Component<Select1Props> {
   render() {
     let text = null
     let match = this.props.options.find(option => option.value == this.props.value)
-    if (match) text = match.text
+    if (match) {
+      text = match.text
+    } else {
+      text = this.props.notMatchText
+    }
 
     return (
       <OuterClick onOuterClick={this.close}>
