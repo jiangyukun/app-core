@@ -5,18 +5,18 @@ import React from 'react'
 import classnames from 'classnames'
 
 import AdaptationTextArea from '../AdaptationTextArea'
+import addFormSupport, {defaultValueFormat} from '../../core/hoc/addFormSupport'
 
 export interface LimitTextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {
   value: string
   onChange: (e: any) => void
   limit: number
+  valid: boolean
   onExceed: () => void
   className?: string
 }
 
 class LimitTextArea extends React.Component<LimitTextAreaProps> {
-  _textArea: HTMLTextAreaElement
-
   state = {
     isExceed: false
   }
@@ -38,7 +38,7 @@ class LimitTextArea extends React.Component<LimitTextAreaProps> {
   }
 
   render() {
-    let {className, limit, onExceed, ...otherProps} = this.props
+    let {className, limit, valid, onExceed, ...otherProps} = this.props
     return (
       <div>
         <AdaptationTextArea
@@ -51,4 +51,10 @@ class LimitTextArea extends React.Component<LimitTextAreaProps> {
   }
 }
 
-export default LimitTextArea
+export default addFormSupport(LimitTextArea, ({props}) => {
+  if (props.value.length > props.limit) return false
+  if (props.required) {
+    return defaultValueFormat(props.value)
+  }
+  return true
+})

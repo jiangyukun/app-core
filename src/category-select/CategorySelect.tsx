@@ -8,6 +8,7 @@ import Select, {SelectProps} from '../common/select/Select'
 import CategoryOptions from './CategoryOptions'
 
 import addFormSupport from '../core/hoc/addFormSupport'
+import DefaultCategoryItem from './DefaultCategoryItem'
 
 type CategoryOption = {
   categoryName: string,
@@ -18,6 +19,7 @@ interface CategorySelectProps extends SelectProps {
   value?: string
   categoryOptions?: CategoryOption[]
   onChange?: (value: string) => void
+  renderOption: (value) => (option, index1, index2) => React.ReactNode
 }
 
 class CategorySelect extends React.Component<CategorySelectProps> {
@@ -25,6 +27,17 @@ class CategorySelect extends React.Component<CategorySelectProps> {
     options: [],
     value: '',
     onChange: () => null,
+    renderOption: value => (option, index1, index2) => {
+      return (
+        <DefaultCategoryItem
+          key={option.value}
+          currentValue={value}
+          option={option}
+          index1={index1}
+          index2={index2}
+        />
+      )
+    }
   }
 
   state = {
@@ -76,6 +89,7 @@ class CategorySelect extends React.Component<CategorySelectProps> {
                 value={this.props.value}
                 categoryOptions={this.props.categoryOptions}
                 onSelect={this.select}
+                renderOption={this.props.renderOption(this.props.value)}
               />
             )
           }

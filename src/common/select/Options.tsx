@@ -2,7 +2,8 @@
  * Created by jiangyukun on 2017/7/13.
  */
 import React from 'react'
-import classnames from 'classnames'
+import PropTypes from 'prop-types'
+
 import ScrollContainer from '../../core/ScrollContainer'
 
 interface OptionsProps {
@@ -11,13 +12,28 @@ interface OptionsProps {
   onSelect: (option) => void
   maxCount: number
   showMoreOptions: () => void
+  renderOption: (option, index) => React.ReactNode
 }
 
-class Options extends React.Component<OptionsProps> {
+class Options extends React.Component<OptionsProps> implements React.ChildContextProvider<any> {
+  static childContextTypes = {
+    setTouchIndex: PropTypes.func,
+    onSelect: PropTypes.func,
+    selectIndex: PropTypes.number
+  }
+
   state = {
     searchKey: '',
     selectIndex: -1,
     touchIndex: -1
+  }
+
+  onSelect = (option)=> {
+    this.props.onSelect(option)
+  }
+
+  setTouchIndex = (index) => {
+    this.setState({touchIndex: index})
   }
 
   componentWillMount() {
@@ -44,14 +60,7 @@ class Options extends React.Component<OptionsProps> {
           {
             filterOptions.map((option, index) => {
               if (index < this.props.maxCount) {
-                return (
-                  <li key={index}
-                      className={classnames('select-item', {'selected': index == this.state.selectIndex})}
-                      onClick={() => this.props.onSelect(option)}
-                      onMouseEnter={() => this.setState({touchIndex: index})}>
-                    {option.text}
-                  </li>
-                )
+                return this.props.renderOption(option, index)
               }
               return null
             })
@@ -73,6 +82,13 @@ class Options extends React.Component<OptionsProps> {
         }
       </ScrollContainer>
     )
+  }
+
+  getChildContext() {
+    return {
+      setTouchIndex: this.setTouchIndex,
+      onSelect: this.onSelect
+    }
   }
 }
 

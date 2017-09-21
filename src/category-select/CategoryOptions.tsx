@@ -2,28 +2,45 @@
  * Created by jiangyukun on 2017/8/8.
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 interface CategoryOptionsProps {
   value: string
   categoryOptions: any[]
   onSelect: (option) => void
+  renderOption: (option, index1, index2) => React.ReactNode
 }
 
-class CategoryOptions extends React.Component<CategoryOptionsProps> {
+export function getItemClassName(selected: boolean, touchCategoryIndex, touchOptionIndex, index1, index2) {
+  return classnames('select-item',
+    {'selected': selected},
+    {
+      'last-touched': index1 == touchCategoryIndex && index2 == touchOptionIndex
+    }
+  )
+}
+
+class CategoryOptions extends React.Component<CategoryOptionsProps> implements React.ChildContextProvider<any> {
+  static childContextTypes = {
+    setTouchOption: PropTypes.func,
+    onSelect: PropTypes.func,
+    touchCategoryIndex: PropTypes.number,
+    touchOptionIndex: PropTypes.number,
+  }
+
   state = {
     selectIndex: -1,
     touchCategoryIndex: -1,
     touchOptionIndex: -1
   }
 
-  getItemClassName = (option, index1, index2) => {
-    return classnames('select-item',
-      {'selected': option.value == this.props.value},
-      {
-        'last-touched': index1 == this.state.touchCategoryIndex && index2 == this.state.touchOptionIndex
-      }
-    )
+  setTouchOption = (index1, index2) => {
+    this.setState({touchCategoryIndex: index1, touchOptionIndex: index2})
+  }
+
+  onSelect = (value) => {
+    this.props.onSelect(value)
   }
 
   render() {
@@ -39,14 +56,7 @@ class CategoryOptions extends React.Component<CategoryOptionsProps> {
                 <ul className="select-items">
                   {
                     category.options.map((option, index2) => {
-                      return (
-                        <li key={option.value} className={this.getItemClassName(option, index1, index2)}
-                            onMouseEnter={() => this.setState({touchCategoryIndex: index1, touchOptionIndex: index2})}
-                            onClick={() => this.props.onSelect(option.value)}
-                        >
-                          {option.text}
-                        </li>
-                      )
+                      return this.props.renderOption(option, index1, index2)
                     })
                   }
                 </ul>
@@ -54,9 +64,17 @@ class CategoryOptions extends React.Component<CategoryOptionsProps> {
             )
           })
         }
-
       </div>
     )
+  }
+
+  getChildContext() {
+    return {
+      setTouchOption: this.setTouchOption,
+      onSelect: this.onSelect,
+      touchCategoryIndex: this.state.touchCategoryIndex,
+      touchOptionIndex: this.state.touchOptionIndex,
+    }
   }
 }
 

@@ -9,12 +9,14 @@ import Select, {SelectProps} from './select/Select'
 import Options from './select/Options'
 
 import addFormSupport from '../core/hoc/addFormSupport'
+import DefaultOptionItem from './select/DefaultOptionItem'
 
 interface Select1Props extends SelectProps {
   value?: string
   options?: { value: string, text: string }[]
   onChange?: (value: string, text: string) => void
   notMatchText?: string
+  renderOption: (option, index) => React.ReactNode
 
   initCount?: number
 
@@ -29,7 +31,16 @@ class Select1 extends React.Component<Select1Props> {
     notMatchText: null,
     onChange: () => null,
     initCount: 10,
-    lazyLoad: false
+    lazyLoad: false,
+    renderOption: (option, index) => {
+      return (
+        <DefaultOptionItem
+          key={option.value}
+          option={option}
+          index={index}
+        />
+      )
+    }
   }
 
   state = {
@@ -99,6 +110,7 @@ class Select1 extends React.Component<Select1Props> {
                 onSelect={this.select}
                 maxCount={this.state.maxCount}
                 showMoreOptions={this.showMoreOptions}
+                renderOption={this.props.renderOption}
               />
             )
           }

@@ -103,7 +103,7 @@ class Select extends React.Component<SelectProps> {
 
   render() {
     let text = this.props.text
-    if (text == null) {
+    if (text == null || text == '') {
       text = this.props.placeholder
     }
 

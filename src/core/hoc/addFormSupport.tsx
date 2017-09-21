@@ -19,6 +19,12 @@ export function checkValid(format, value): boolean {
   return valid
 }
 
+export function defaultValueFormat(value) {
+  if (value == null) return false
+  if (typeof value == 'number') return true
+  return value.trim().length != 0
+}
+
 function addFormSupport<T>(WrapperComponent, checkValid: (instance) => boolean) {
 
   interface P extends FormCommon {
@@ -35,7 +41,7 @@ function addFormSupport<T>(WrapperComponent, checkValid: (instance) => boolean) 
     valid = true
 
     componentDidMount() {
-      if (this.props.required && this.context.setValid) {
+      if ((this.props.required || this.props.format) && this.context.setValid) {
         if (!this.props.name) {
           throw new Error('name is required !!!')
         }
@@ -45,7 +51,7 @@ function addFormSupport<T>(WrapperComponent, checkValid: (instance) => boolean) 
     }
 
     componentDidUpdate() {
-      if (this.props.required && this.context.setValid) {
+      if ((this.props.required || this.props.format) && this.context.setValid) {
         let valid = checkValid(this._instance)
         if (this.valid != valid) {
           this.valid = valid
