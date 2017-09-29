@@ -78,8 +78,6 @@ class Modal extends React.Component<ModalProps> {
   }
 
   componentDidMount() {
-    this._container.focus()
-    events.on(this._container, 'keyup', this.handleKeyUp)
     // 使页面无法滚动
     addClass(document.getElementsByTagName('html')[0], 'modal-opened')
   }
@@ -91,7 +89,6 @@ class Modal extends React.Component<ModalProps> {
   }
 
   componentWillUnmount() {
-    events.off(this._container, 'keyup', this.handleKeyUp)
     if (!this.exited) {
       this.props.onExited()
     }
@@ -100,10 +97,9 @@ class Modal extends React.Component<ModalProps> {
   }
 
   render() {
-    const Container = this.props.containerComponent
     return (
       <Portal>
-        <div className="__modal" tabIndex={-1} ref={c => this._container = c}>
+        <div className="__modal" tabIndex={-1} onKeyUp={this.handleKeyUp}>
           <Transition show={this.props.show}>
             <div className="my-mask" onClick={this.onHide}></div>
           </Transition>
