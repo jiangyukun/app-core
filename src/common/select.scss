@@ -123,4 +123,16 @@
         }
     }
 
+    &.small {
+        .selected-item {
+            .select-item-text {
+                padding: 2px 10px;
+            }
+        }
+
+        .dropdown b {
+            top: 40%;
+        }
+    }
+
 }

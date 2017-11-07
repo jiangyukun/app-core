@@ -1,0 +1,7 @@
+.check-group {
+    .checkbox-wrapper {
+        & ~ .checkbox-wrapper {
+            margin: 5px 5px 5px 0;
+        }
+    }
+}
