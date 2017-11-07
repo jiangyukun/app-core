@@ -8,8 +8,10 @@ interface ScrollContainerProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 class ScrollContainer extends React.Component<ScrollContainerProps> {
+  _container: HTMLDivElement
+
   handleScroll = (e) => {
-    const target = e.target
+    const target = this._container
     if (target.clientHeight + target.scrollTop == target.scrollHeight) {
       this.props.onScrollBottom()
     }
@@ -18,7 +20,7 @@ class ScrollContainer extends React.Component<ScrollContainerProps> {
   render() {
     let {onScrollBottom, ...otherProps} = this.props
     return (
-      <div {...otherProps} onScroll={this.handleScroll}>
+      <div ref={c => this._container = c} {...otherProps} onScroll={this.handleScroll} onWheel={this.handleScroll}>
         {this.props.children}
       </div>
     )

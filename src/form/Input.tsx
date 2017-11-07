@@ -3,14 +3,16 @@
  */
 import React from 'react'
 
-interface InputProps extends React.HTMLProps<HTMLInputElement>{
-
+interface InputProps extends React.HTMLProps<HTMLInputElement> {
+  value: string
+  onChange: (value: any) => void
+  classPre?: string
 }
 
 class Input extends React.Component<InputProps> {
   render() {
     return (
-      <input {...this.props} className="__input"/>
+      <input {...this.props as any} className={`__input ${this.props.classPre}-input`} onChange={e => this.props.onChange(e.target.value)}/>
     )
   }
 }
