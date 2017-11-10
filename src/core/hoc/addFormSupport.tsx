@@ -60,6 +60,12 @@ function addFormSupport<T>(WrapperComponent, checkValid: (instance) => boolean) 
       }
     }
 
+    componentWillUnmount() {
+      if ((this.props.required || this.props.format) && this.context.setValid) {
+        this.context.setValid(this.props.name, true)
+      }
+    }
+
     render() {
       if (this.context.disabled) {
         return (
