@@ -14,7 +14,21 @@ class DefaultOptionItem extends React.Component<DefaultOptionItemProps> {
   static contextTypes = {
     setTouchIndex: PropTypes.func,
     onSelect: PropTypes.func,
-    selectIndex: PropTypes.number
+    selectIndex: PropTypes.number,
+    needMoreWidth: PropTypes.func
+  }
+  textContainer: HTMLSpanElement
+
+  componentDidUpdate() {
+    if (this.textContainer.offsetWidth < this.textContainer.scrollWidth) {
+      this.context.needMoreWidth()
+    }
+  }
+
+  componentDidMount() {
+    if (this.textContainer.offsetWidth < this.textContainer.scrollWidth) {
+      this.context.needMoreWidth()
+    }
   }
 
   render() {
@@ -22,6 +36,7 @@ class DefaultOptionItem extends React.Component<DefaultOptionItemProps> {
 
     return (
       <li
+        ref={c => this.textContainer = c}
         className={classnames('select-item', {'selected': index == this.context.selectIndex})}
         onClick={() => this.context.onSelect(option)}
         onMouseEnter={() => this.context.setTouchIndex(index)}

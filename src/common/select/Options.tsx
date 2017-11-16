@@ -19,21 +19,27 @@ class Options extends React.Component<OptionsProps> implements React.ChildContex
   static childContextTypes = {
     setTouchIndex: PropTypes.func,
     onSelect: PropTypes.func,
-    selectIndex: PropTypes.number
+    selectIndex: PropTypes.number,
+    needMoreWidth: PropTypes.func
   }
 
   state = {
     searchKey: '',
     selectIndex: -1,
-    touchIndex: -1
+    touchIndex: -1,
+    right: 0 // position absolute right 值,自动展开容器
   }
 
-  onSelect = (option)=> {
+  onSelect = (option) => {
     this.props.onSelect(option)
   }
 
   setTouchIndex = (index) => {
     this.setState({touchIndex: index})
+  }
+
+  needMoreWidth = () => {
+    this.setState({right: this.state.right - 5})
   }
 
   componentWillMount() {
@@ -49,7 +55,7 @@ class Options extends React.Component<OptionsProps> implements React.ChildContex
     const filterOptions = this.props.options.filter(item => item.text.indexOf(this.state.searchKey) != -1)
     let showMore = filterOptions.length > this.props.maxCount, noMatch = filterOptions.length == 0
     return (
-      <ScrollContainer className="all-select-items" onScrollBottom={this.props.showMoreOptions}>
+      <ScrollContainer className="all-select-items" onScrollBottom={this.props.showMoreOptions} style={{right: this.state.right}}>
         {
           this.props.options.length > 20 && (
             <input value={this.state.searchKey} className="search" onChange={e => this.setState({searchKey: e.target.value})}
@@ -87,7 +93,8 @@ class Options extends React.Component<OptionsProps> implements React.ChildContex
   getChildContext() {
     return {
       setTouchIndex: this.setTouchIndex,
-      onSelect: this.onSelect
+      onSelect: this.onSelect,
+      needMoreWidth: this.needMoreWidth
     }
   }
 }

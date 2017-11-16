@@ -2,6 +2,12 @@ $out-time: 240ms;
 
 .modal-opened {
     overflow: hidden;
+
+    body {
+        overflow: hidden;
+        position: relative;
+        height: 100%;
+    }
 }
 
 .__modal {

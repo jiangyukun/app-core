@@ -102,9 +102,10 @@ class Select extends React.Component<SelectProps> {
   }
 
   render() {
-    let text = this.props.text
+    let text = this.props.text, isDefault = false
     if (text == null || text == '') {
       text = this.props.placeholder
+      isDefault = true
     }
 
     return (
@@ -117,6 +118,7 @@ class Select extends React.Component<SelectProps> {
         tabIndex={-1}
       >
         <SelectMain
+          isDefault={isDefault}
           active={this.props.active}
           valid={!this.props.required || this.props.valid}
           text={text}

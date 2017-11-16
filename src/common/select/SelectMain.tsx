@@ -5,6 +5,7 @@ import React from 'react'
 import classnames from 'classnames'
 
 interface SelectMainProps {
+  isDefault: boolean
   active: boolean
   showClear: boolean
   text: string
@@ -32,7 +33,7 @@ class SelectMain extends React.Component<SelectMainProps> {
         onClick={this.props.onClick}
         className={classnames('selected-item', {'open': this.props.active}, {'invalid': !this.props.valid && this.state.touched})}
       >
-        <span className="select-item-text">{this.props.text}</span>
+        <span className={classnames('select-item-text', {'placeholder': this.props.isDefault})}>{this.props.text}</span>
         <span className="dropdown"><b></b></span>
         {
           this.props.showClear && (
