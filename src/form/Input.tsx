@@ -11,8 +11,9 @@ interface InputProps extends React.HTMLProps<HTMLInputElement> {
 
 class Input extends React.Component<InputProps> {
   render() {
+    const {classPre, ...otherProps} = this.props
     return (
-      <input {...this.props as any} className={`__input ${this.props.classPre}-input`} onChange={e => this.props.onChange(e.target.value)}/>
+      <input {...otherProps} className={`__input ${this.props.classPre}-input`} onChange={e => this.props.onChange(e.target.value)}/>
     )
   }
 }
