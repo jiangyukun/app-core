@@ -3,7 +3,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import addFormSupport from 'app-core/core/hoc/addFormSupport'
+
+import addFormSupport from '../core/hoc/addFormSupport'
 
 interface GroupProps {
   value: string | number

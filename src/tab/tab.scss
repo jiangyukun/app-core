@@ -1,0 +1,32 @@
+$color: #ddd;
+
+.i-tabs {
+
+    .tab-titles {
+        border-bottom: 1px solid $color;
+
+        .tab-title {
+            position: relative;
+            float: left;
+            margin-bottom: -1px;
+
+            a {
+                display: block;
+                position: relative;
+                padding: 10px 15px;
+                cursor: pointer;
+            }
+
+            &.selected {
+                a {
+                    border: 1px solid $color;
+                    background: #fff;
+                    border-bottom-color: transparent;
+                    border-radius: 4px 4px 0 0;
+                    color: #555;
+                    cursor: default;
+                }
+            }
+        }
+    }
+}
