@@ -13,7 +13,7 @@ class Input extends React.Component<InputProps> {
   render() {
     const {classPre, ...otherProps} = this.props
     return (
-      <input {...otherProps} className={`__input ${this.props.classPre}-input`} onChange={e => this.props.onChange(e.target.value)}/>
+      <input {...otherProps} className={`__input ${classPre}-input`} onChange={e => this.props.onChange(e.target.value)}/>
     )
   }
 }
