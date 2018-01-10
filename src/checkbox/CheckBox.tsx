@@ -15,7 +15,7 @@ interface CheckBoxProps {
 
 class CheckBox extends React.Component<CheckBoxProps> {
   handleChange = (e) => {
-    this.props.onChange(e.target.checked)
+    this.props.onChange(!this.props.checked)
   }
 
   render() {
