@@ -5,14 +5,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-import './tab.scss'
+import {supportClassPre} from '../tools/common-utils'
 
 interface TabsProps {
   activeKey: number
   onSelect: (tabKey) => void
+  classPre?: string
 }
 
-class Tabs extends React.Component<TabsProps, any> {
+class Tabs extends React.Component<TabsProps> {
   static childContextTypes = {
     currentTabKey: PropTypes.number
   }
@@ -30,7 +31,7 @@ class Tabs extends React.Component<TabsProps, any> {
       })
     })
     return (
-      <div className="i-tabs">
+      <div className={supportClassPre(this.props.classPre, 'i-tabs')}>
         <div className="tab-titles clearfix">
           {
             tabs.map((tab, index) => {
