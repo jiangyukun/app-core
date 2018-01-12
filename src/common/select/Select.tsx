@@ -10,8 +10,7 @@ export interface SelectProps {
   active: boolean
   onActiveChange: (active) => void
   placeholder: string
-  className: string
-  width: string
+  classPre: string
   disabled: boolean
   required?: boolean
   valid: boolean
@@ -108,10 +107,11 @@ class Select extends React.Component<SelectProps> {
       isDefault = true
     }
 
+    let prefixClassName = this.props.classPre + '-select1'
+
     return (
       <div
-        className={classnames('__select-container', {'disabled': this.props.disabled}, this.props.className)}
-        style={{width: this.props.width}}
+        className={classnames('__select-container', {'disabled': this.props.disabled, [prefixClassName]: this.props.classPre})}
         onMouseEnter={() => this.setState({showClose: true})}
         onMouseLeave={() => this.setState({showClose: false})}
         onKeyUp={this.handleContainerKeyUp}

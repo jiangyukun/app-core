@@ -5,23 +5,30 @@ import React from 'react'
 
 import Spinner from './Spinner'
 import OuterClick from '../core/OuterClick'
-import Select, {SelectProps} from './select/Select'
+import Select from './select/Select'
 import Options from './select/Options'
 
-import addFormSupport from '../core/hoc/addFormSupport'
 import DefaultOptionItem from './select/DefaultOptionItem'
 
-interface Select1Props extends SelectProps {
-  value?: string
-  options?: { value: string, text: string }[]
-  onChange?: (value: string, text: string) => void
+export interface Select1Props {
+  options: { value: string, text: string }[]
+  value: string
+  onChange: (value: string) => void
   notMatchText?: string
-  renderOption: (option, index) => React.ReactNode
+  renderOption?: (option, index) => React.ReactNode
 
   initCount?: number
 
   lazyLoad?: boolean
   loadSuccess?: boolean
+
+  placeholder?: string
+  classPre?: string
+  disabled?: boolean
+  valid?: boolean
+  showClear?: boolean
+  onFirstOpen?: () => void
+  onOpen?: () => void
 }
 
 class Select1 extends React.Component<Select1Props> {
@@ -55,7 +62,7 @@ class Select1 extends React.Component<Select1Props> {
   // 点击选项
   select = (option) => {
     if (this.props.value != option.value) {
-      this.props.onChange(option.value, option.text)
+      this.props.onChange(option.value)
     }
     this.close()
   }
@@ -85,14 +92,13 @@ class Select1 extends React.Component<Select1Props> {
           onActiveChange={active => this.setState({active})}
           text={text}
           placeholder={this.props.placeholder}
-          className={this.props.className}
+          classPre={this.props.classPre}
           disabled={this.props.disabled}
-          width={this.props.width}
           onOpen={this.props.onOpen}
           onFirstOpen={this.props.onFirstOpen}
-          valid={this.props.value != ''}
+          valid={this.props.valid}
           showClear={this.props.showClear && this.props.value != ''}
-          onClear={() => this.props.onChange('', '')}
+          onClear={() => this.props.onChange('')}
         >
           {
             this.state.active && this.props.lazyLoad && !this.props.loadSuccess && (
@@ -121,4 +127,4 @@ class Select1 extends React.Component<Select1Props> {
   }
 }
 
-export default addFormSupport<Select1Props>(Select1, ({props}) => props.value != '')
+export default Select1
