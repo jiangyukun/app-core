@@ -4,14 +4,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-interface FormProps extends React.HTMLProps<HTMLDivElement> {
+interface FormProps {
+  name?: string
   onValidChange: (valid: boolean) => void
 }
 
+let formUid = 1
+
 class Form extends React.Component<FormProps> {
+  static defaultProps = {
+    name: 'form_' + formUid++
+  }
+  static contextTypes = {
+    setValid: PropTypes.func
+  }
   static childContextTypes = {
-    setValid: PropTypes.func,
-    disabled: PropTypes.bool
+    setValid: PropTypes.func
   }
 
   map = {}
@@ -21,21 +29,21 @@ class Form extends React.Component<FormProps> {
       return
     }
     this.map[name] = valid
-    let inValidInputs = Object.keys(this.map).filter(input => this.map[input] == false)
-    this.props.onValidChange(inValidInputs.length == 0)
+    let invalidInputs = Object.keys(this.map).filter(input => this.map[input] == false)
+    const formValid = invalidInputs.length == 0
+    this.props.onValidChange(formValid)
+    if (this.context.setValid) {
+      this.context.setValid(this.props.name, formValid)
+    }
   }
 
   render() {
-    const {onValidChange, ...otherProps} = this.props
-    return (
-      <div {...otherProps}/>
-    )
+    return React.Children.only(this.props.children)
   }
 
   getChildContext() {
     return {
-      setValid: this.setValid,
-      disabled: this.props.disabled
+      setValid: this.setValid
     }
   }
 }
