@@ -73,14 +73,13 @@ class CategorySelect extends React.Component<CategorySelectProps> {
             onActiveChange={active => this.setState({active})}
             text={text}
             placeholder={this.props.placeholder}
-            className={this.props.className}
             disabled={this.props.disabled}
-            width={this.props.width}
             onOpen={this.props.onOpen}
             onFirstOpen={this.props.onFirstOpen}
             valid={this.props.value != ''}
             showClear={this.props.showClear}
             onClear={() => this.props.onChange('')}
+            classPre={this.props.classPre}
           >
 
           {
