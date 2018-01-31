@@ -2,29 +2,72 @@
  * jiangyukun on 2018/1/31
  */
 import React from 'react'
-
-import Select2 from './Select2'
-import Option from './Option'
+import PropTypes from 'prop-types'
+import OuterClick from '../core/OuterClick'
 
 interface SelectProps {
-  options: any[]
   value: string
-  onChange: (value: string) => void
+  onChange: (value, selectOrInput) => void
 }
 
-class Select extends React.Component<SelectProps> {
+export enum InputType {
+  input, select
+}
+
+class Select extends React.Component<SelectProps> implements React.ChildContextProvider<any> {
+  static childContextTypes = {
+    onChange: PropTypes.func
+  }
+
+  getChildContext(): any {
+    return {
+      onChange: this.onChange
+    }
+  }
+
+  state = {
+    active: false
+  }
+
+  close = () => {
+    this.setState({active: false})
+  }
+
+  toggle = () => {
+    this.setState({active: !this.state.active})
+  }
+
+  onChange = (option) => {
+    if (this.props.value != option.value) {
+      this.props.onChange(option.value, InputType.select)
+    }
+    this.close()
+  }
 
   render() {
     return (
-      <Select2 value={this.props.value} onChange={this.props.onChange}>
-        {
-          this.props.options.map(option => {
-            return (
-              <Option key={option.value} value={option.value} text={option.text}/>
+      <OuterClick onOuterClick={this.close}>
+        <div className="select2">
+          <input className="search"
+                 placeholder="请输入"
+                 onFocus={this.close}
+                 value={this.props.value} onChange={e => this.props.onChange(e.target.value, InputType.input)}/>
+
+          <span className="dropdown" onClick={this.toggle}>
+          <b></b>
+        </span>
+
+          {
+            this.state.active && (
+              <div className="options-container">
+                <ul className="">
+                  {this.props.children}
+                </ul>
+              </div>
             )
-          })
-        }
-      </Select2>
+          }
+        </div>
+      </OuterClick>
     )
   }
 }

@@ -7,7 +7,7 @@ import {render} from 'react-dom'
 
 import '../common.scss'
 import '../../src/select2/select2.scss'
-import Select from '../../src/select2/Select'
+import Select2 from '../../src/select2/Select2'
 
 let o = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map(d => ({value: d + '', text: d + ''}))
 
@@ -26,7 +26,7 @@ class S extends React.Component<any> {
   render() {
     return (
       <div className="container">
-        <Select
+        <Select2
           options={o} value={this.state.value} onChange={v => this.setState({value: v})}/>
       </div>
     )
