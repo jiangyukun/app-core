@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 interface FormProps {
   name?: string
-  onValidChange: (valid: boolean) => void
+  onValidChange: (valid: boolean, validInfo?: any) => void
 }
 
 let formUid = 1
@@ -31,7 +31,7 @@ class Form extends React.Component<FormProps> {
     this.map[name] = valid
     let invalidInputs = Object.keys(this.map).filter(input => this.map[input] == false)
     const formValid = invalidInputs.length == 0
-    this.props.onValidChange(formValid)
+    this.props.onValidChange(formValid, this.map)
     if (this.context.setValid) {
       this.context.setValid(this.props.name, formValid)
     }

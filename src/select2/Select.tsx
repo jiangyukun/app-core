@@ -3,15 +3,13 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import OuterClick from '../core/OuterClick'
+import {InputType} from './Select2'
 
 interface SelectProps {
   value: string
-  onChange: (value, selectOrInput) => void
-}
-
-export enum InputType {
-  input, select
+  onChange: (value: string, inputType: InputType) => void
 }
 
 class Select extends React.Component<SelectProps> implements React.ChildContextProvider<any> {
@@ -37,9 +35,9 @@ class Select extends React.Component<SelectProps> implements React.ChildContextP
     this.setState({active: !this.state.active})
   }
 
-  onChange = (option) => {
-    if (this.props.value != option.value) {
-      this.props.onChange(option.value, InputType.select)
+  onChange = (value) => {
+    if (this.props.value != value) {
+      this.props.onChange(value, InputType.select)
     }
     this.close()
   }
@@ -48,10 +46,12 @@ class Select extends React.Component<SelectProps> implements React.ChildContextP
     return (
       <OuterClick onOuterClick={this.close}>
         <div className="select2">
-          <input className="search"
-                 placeholder="请输入"
-                 onFocus={this.close}
-                 value={this.props.value} onChange={e => this.props.onChange(e.target.value, InputType.input)}/>
+          <input
+            className="search"
+            placeholder="请输入"
+            onFocus={this.close}
+            value={this.props.value || ''}
+            onChange={e => this.props.onChange(e.target.value, InputType.input)}/>
 
           <span className="dropdown" onClick={this.toggle}>
           <b></b>

@@ -29,6 +29,7 @@ class Input extends React.Component<InputProps> {
         {...otherProps}
         className={classnames(`__input`, {[`${classPre}-input`]: this.props.classPre, 'invalid': this.state.touched && valid == false})}
         onChange={e => this.props.onChange(e.target.value)}
+        value={this.props.value || ''}
         onBlur={this.handleBlur}
       />
     )

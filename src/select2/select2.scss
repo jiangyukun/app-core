@@ -2,7 +2,7 @@
     display: inline-block;
     position: relative;
     border: 1px solid #66afe9;
-    padding: 0 10px;
+    padding: 0;
     z-index: 1;
 
     .dropdown {
@@ -31,9 +31,10 @@
     }
 
     .search {
+        width:100%;
         border: none;
         outline: none;
-        padding: 5px;
+        padding: 3px 5px;
     }
 
     .options-container {
