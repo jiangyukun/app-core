@@ -51,7 +51,7 @@ class Options extends React.Component<OptionsProps> implements React.ChildContex
     return (
       <ScrollContainer className="all-select-items" onScrollBottom={this.props.showMoreOptions}>
         {
-          this.props.options.length > 20 && (
+          this.props.options.length > 0 && (
             <input value={this.state.searchKey} className="search" onChange={e => this.setState({searchKey: e.target.value})}
                    placeholder="搜索"/>
           )

@@ -9,7 +9,12 @@ export interface FormCommon {
   name?: string
 }
 
-export function checkValid(format, value): boolean {
+export function checkValid(format, value, required): boolean {
+  if (!required && value == '') return true
+  return checkFormat(format, value)
+}
+
+function checkFormat(format, value) {
   let valid = true
   if (format instanceof RegExp) {
     valid = format.test(value)
@@ -60,10 +65,17 @@ function addFormSupport<T>(WrapperComponent, checkValid: (instance) => boolean) 
       }
     }
 
+    componentWillUnmount() {
+      if ((this.props.required || this.props.format) && this.context.setValid) {
+        this.context.setValid(this.props.name, true)
+      }
+    }
+
     render() {
       if (this.context.disabled) {
         return (
-          <WrapperComponent ref={c => this._instance = c} {...this.props} valid={this.valid} disabled={this.context.disabled}/>
+          <WrapperComponent ref={c => this._instance = c} {...this.props} valid={this.valid}
+                            disabled={this.context.disabled}/>
         )
       }
       return (
