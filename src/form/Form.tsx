@@ -12,6 +12,7 @@ interface FormProps {
 let formUid = 1
 
 class Form extends React.Component<FormProps> {
+  //todo error
   static defaultProps = {
     name: 'form_' + formUid++
   }
