@@ -11,11 +11,12 @@ interface FormProps {
 
 let formUid = 1
 
+export function getFormItemName(name, defaultName) {
+  return name || `${defaultName}_${formUid++}`
+}
+
 class Form extends React.Component<FormProps> {
-  //todo error
-  static defaultProps = {
-    name: 'form_' + formUid++
-  }
+  name: string
   static contextTypes = {
     setValid: PropTypes.func
   }
@@ -23,18 +24,31 @@ class Form extends React.Component<FormProps> {
     setValid: PropTypes.func
   }
 
-  map = {}
+  constructor(props) {
+    super(props)
+    this.name = getFormItemName(this.props.name, 'form_')
+  }
 
-  setValid = (name, valid) => {
+  formItemList = []
+
+  setValid = (name, valid, errorMessage) => {
     if (!name) {
       return
     }
-    this.map[name] = valid
-    let invalidInputs = Object.keys(this.map).filter(input => this.map[input] == false)
+    let match = this.formItemList.find(item => item.name == name)
+    if (!match) {
+      this.formItemList.push({
+        name, valid, errorMessage
+      })
+    } else {
+      match.valid = valid
+      match.errorMessage = errorMessage
+    }
+    let invalidInputs = this.formItemList.filter(formItem => formItem.valid == false)
     const formValid = invalidInputs.length == 0
-    this.props.onValidChange(formValid, this.map)
+    this.props.onValidChange(formValid, invalidInputs)
     if (this.context.setValid) {
-      this.context.setValid(this.props.name, formValid)
+      this.context.setValid(this.name, formValid)
     }
   }
 

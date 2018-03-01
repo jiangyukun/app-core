@@ -2,6 +2,7 @@
  * Created by jiangyukun on 2017/7/20.
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 interface InputProps extends React.HTMLProps<HTMLInputElement> {
@@ -12,13 +13,22 @@ interface InputProps extends React.HTMLProps<HTMLInputElement> {
 }
 
 class Input extends React.Component<InputProps> {
+  static contextTypes = {
+    setTouched: PropTypes.func
+  }
+
   state = {
     touched: false
   }
 
   handleBlur = (e) => {
     this.setState({touched: true})
-    this.props.onBlur && this.props.onBlur(e)
+    if (this.props.onBlur) {
+      this.props.onBlur(e)
+    }
+    if (this.context.setTouched) {
+      this.context.setTouched()
+    }
   }
 
   render() {
