@@ -20,7 +20,7 @@ class TouchInput extends React.Component<TouchInputProps> {
   render() {
     const {...props} = this.props
     return (
-      <BaseInput {...props} valid={this.props.valid || !this.state.touched} onBlur={() => this.setState({touched: true})}/>
+      <BaseInput {...props}/>
     )
   }
 }

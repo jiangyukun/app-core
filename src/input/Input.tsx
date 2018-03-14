@@ -5,9 +5,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
+import BaseInput from './BaseInput'
+
 interface InputProps extends React.HTMLProps<HTMLInputElement> {
   value: string
-  onChange: (value: any) => void
+  onChange: (value) => void
   classPre?: string
   valid?: boolean
 }
@@ -35,11 +37,9 @@ class Input extends React.Component<InputProps> {
     const {classPre, valid, ...otherProps} = this.props
 
     return (
-      <input
-        {...otherProps}
+      <BaseInput
+        {...otherProps as any}
         className={classnames(`__input`, {[`${classPre}-input`]: this.props.classPre, 'invalid': this.state.touched && valid == false})}
-        onChange={e => this.props.onChange(e.target.value)}
-        value={this.props.value || ''}
         onBlur={this.handleBlur}
       />
     )
