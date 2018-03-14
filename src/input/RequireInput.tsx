@@ -2,6 +2,8 @@
  * jiangyukun on 2018/1/11
  */
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import Input from './Input'
 
 import Valid, {checkIsValid, getFormItemName} from '../form/Valid'
@@ -12,9 +14,28 @@ interface RequireInputProps extends RequiredFormProperties {
   format?: any
   emptyTip?: string
   formatTip?: string | ((value) => string) | string[]
+  onBlur: (e) => void
 }
 
 class RequireInput extends React.Component<RequireInputProps> {
+  static contextTypes = {
+    setTouched: PropTypes.func
+  }
+
+  state = {
+    touched: false
+  }
+
+  handleBlur = (e) => {
+    this.setState({touched: true})
+    if (this.props.onBlur) {
+      this.props.onBlur(e)
+    }
+    if (this.context.setTouched) {
+      this.context.setTouched()
+    }
+  }
+
   name: string
 
   componentWillMount() {
@@ -39,7 +60,9 @@ class RequireInput extends React.Component<RequireInputProps> {
 
     return (
       <Valid name={this.name} valid={valid} errorMessage={errorMessage}>
-        <Input {...otherProps} value={this.props.value || ''} valid={valid}/>
+        <Input {...otherProps} value={this.props.value} className={valid ? '' : 'invalid'}
+               onBlur={this.handleBlur}
+        />
       </Valid>
     )
   }
