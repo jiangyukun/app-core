@@ -52,6 +52,12 @@ class Form extends React.Component<FormProps> {
     }
   }
 
+  componentWillUnmount() {
+    if (this.context.setValid) {
+      this.context.setValid(this.name, true)
+    }
+  }
+
   render() {
     return React.Children.only(this.props.children)
   }
