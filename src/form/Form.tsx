@@ -5,6 +5,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 interface FormProps {
+  disabled?: boolean
   name?: string
   onValidChange: (valid: boolean, validInfo?: any) => void
 }
@@ -18,10 +19,12 @@ export function getFormItemName(name, defaultName) {
 class Form extends React.Component<FormProps> {
   name: string
   static contextTypes = {
-    setValid: PropTypes.func
+    setValid: PropTypes.func,
+    disabled: PropTypes.bool
   }
   static childContextTypes = {
-    setValid: PropTypes.func
+    setValid: PropTypes.func,
+    disabled: PropTypes.bool
   }
 
   constructor(props) {
@@ -64,7 +67,8 @@ class Form extends React.Component<FormProps> {
 
   getChildContext() {
     return {
-      setValid: this.setValid
+      setValid: this.setValid,
+      disabled: this.props.disabled || this.context.disabled
     }
   }
 }
