@@ -8,7 +8,7 @@ import BaseInput from './BaseInput'
 
 interface InputProps extends React.HTMLProps<HTMLInputElement> {
   value: string
-  onChange: (value) => void
+  onChange?: (value) => void
   classPre?: string
 }
 

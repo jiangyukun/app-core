@@ -13,7 +13,7 @@ import DefaultOptionItem from './select/DefaultOptionItem'
 export interface Select1Props {
   options: { value: string, text: string }[]
   value: string
-  onChange: (value: string) => void
+  onChange?: (value: string) => void
   notMatchText?: string
   renderOption?: (option, index) => React.ReactNode
 
