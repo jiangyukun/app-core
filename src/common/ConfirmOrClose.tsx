@@ -9,12 +9,14 @@ interface ConfirmOrCloseProps {
   onConfirm: () => void
   disabled?: boolean
   okBtnName?: string
+  cancelBtnName?: string
 }
 
 class ConfirmOrClose extends React.Component<ConfirmOrCloseProps, any> {
   static defaultProps = {
     disabled: false,
-    okBtnName: '确定'
+    okBtnName: '确定',
+    cancelBtnName: '取消'
   }
 
   render() {
@@ -22,7 +24,7 @@ class ConfirmOrClose extends React.Component<ConfirmOrCloseProps, any> {
       <div className="button-group">
         <div className="button-item">
           <Button type="full closed" onClick={this.props.onCancel}>
-            取消
+            {this.props.cancelBtnName}
           </Button>
         </div>
         <div className="button-item">
