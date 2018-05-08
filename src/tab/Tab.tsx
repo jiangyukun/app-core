@@ -17,7 +17,10 @@ class Tab extends React.Component<TabProps, any> {
 
   render() {
     return (
-      <div className={classnames('tab', {'hidden': this.context.currentTabKey != this.props.tabKey})}>
+      <div className={classnames('tab', {
+        'hidden': this.context.currentTabKey != this.props.tabKey,
+        'active': this.context.currentTabKey == this.props.tabKey
+      })}>
         {this.props.children}
       </div>
     )

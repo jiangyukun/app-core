@@ -47,7 +47,7 @@ class Tabs extends React.Component<TabsProps> {
             })
           }
         </div>
-        <div>
+        <div className="tab-body">
           {this.props.children}
         </div>
       </div>
