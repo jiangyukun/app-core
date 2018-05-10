@@ -26,7 +26,6 @@ class Alert extends React.Component<AlertProps, any> {
         <Modal.Body>
           {this.props.message}
         </Modal.Body>
-
         <Modal.Footer>
           <button className="button default" onClick={this.close}>取消</button>
           <button className="button" onClick={this.close && this.props.onConfirm}>确定</button>

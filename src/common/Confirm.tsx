@@ -10,7 +10,7 @@ import ConfirmOrClose from './ConfirmOrClose'
 interface ConfirmProps {
   message?: string
   onConfirm: () => void
-  onExited?: () => void
+  onExited: () => void
 }
 
 class Confirm extends React.Component<ConfirmProps, any> {
@@ -34,11 +34,9 @@ class Confirm extends React.Component<ConfirmProps, any> {
   }
 
   handleExited = () => {
+    this.props.onExited()
     if (this.closeType == 'confirm') {
       this.props.onConfirm()
-    }
-    if (this.props.onExited) {
-      this.props.onExited()
     }
   }
 
