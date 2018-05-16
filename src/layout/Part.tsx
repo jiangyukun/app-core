@@ -5,7 +5,7 @@ import React from 'react'
 
 interface PartProps extends React.HTMLProps<HTMLDivElement> {
   weight?: number
-  textAlign?: string
+  textAlign?: any
 }
 
 class Part extends React.Component<PartProps> {
